@@ -36,9 +36,6 @@ public class GuardianImaginary : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.GetComponent<TiaNastacia>() != null)
-        {
-            collision.gameObject.GetComponent<TiaNastacia>().TakeDamage(0, 0, damage, damagePenetration, true, collision.transform.position);
-        }
+
     }
 }

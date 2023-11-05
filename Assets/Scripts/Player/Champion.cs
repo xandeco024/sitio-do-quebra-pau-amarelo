@@ -12,6 +12,7 @@ public class Champion : MonoBehaviour
     [SerializeField] GameObject basicBulletPrefab;
 
     [Header("Attributes")]
+    [SerializeField] protected string championName;
     [SerializeField] protected float maxHealth;
     [SerializeField] protected float maxMana;
     [SerializeField] protected float maxStamina;
@@ -24,6 +25,9 @@ public class Champion : MonoBehaviour
     [SerializeField] protected float attackPenetration;
     [SerializeField] protected float magicPenetration;
     [SerializeField] private float moveSpeed;
+    protected float staminaDrain = 20;
+    protected float staminaRegenRate = 5;
+    protected float manaRegenRate = 5;
 
     [Header("Invisible")]
     protected float health;
@@ -31,10 +35,9 @@ public class Champion : MonoBehaviour
     protected float stamina;
 
     [Header("Stats")]
-    [SerializeField] public bool player;
+    protected bool player;
     protected bool canAttack = true;
-    protected GameObject target;
-    protected string facingDirection = "south";
+    protected bool interacting;
 
     [Header("Movement")]
     protected bool isRunning;
@@ -43,6 +46,7 @@ public class Champion : MonoBehaviour
 
 
     // Variaveis Acessiveis
+    public string ChampionName { get { return championName; } }
     public float MaxHealth { get { return maxHealth; } }
     public float Health { get { return health; } set { if (value >= 0) { health = value; } } }
     public float MaxMana { get { return maxMana; } }
@@ -53,6 +57,17 @@ public class Champion : MonoBehaviour
     public float MagicDamage { get { return magicDamage; } }
     public float AttackPenetration { get { return attackPenetration; } }
     public float MagicPenetration { get { return MagicPenetration; } }
+    public float AttackResistance { get { return attackResistance; } }
+    public float MagicResistance { get { return magicResistance; } }
+    public float MoveSpeed { get { return moveSpeed; } }
+    public bool Interacting { get { return interacting; } }
+
+
+
+    protected virtual void Awake()
+    {
+
+    }
 
     protected virtual void Start()
     {
@@ -73,8 +88,6 @@ public class Champion : MonoBehaviour
 
     protected virtual void Update()
     {
-        target = UpdateTarget();
-
         /*if (target != null)
         {
             DrawCircle(transform.position, attackRange, Color.red);
@@ -89,6 +102,7 @@ public class Champion : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J)) 
         {
             TakeDamage(10, 0, 0, 0, false, transform.position);
+            stamina -= 10;
         }
 
         if(Input.GetMouseButton(0) && canAttack)
@@ -96,7 +110,15 @@ public class Champion : MonoBehaviour
             BasicAttack();
         }
 
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            interacting = true;
+        }
+
+        else interacting = false;
+
         DetectMovement();
+        Regen();
         //RotateToLookAtCursor();
     }
 
@@ -114,13 +136,13 @@ public class Champion : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
         {
             isRunning = true;
+            stamina -= Time.deltaTime * staminaDrain;
         }
 
         else
         {
             isRunning = false;
         }
-
     }
 
     void HandleMovement()
@@ -147,11 +169,6 @@ public class Champion : MonoBehaviour
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         float angle = Mathf.Atan2(mousePosition.y - transform.position.y, mousePosition.x - transform.position.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-    }
-
-    private GameObject UpdateTarget()
-    {
-        return gameManager.Target;
     }
 
     private void BasicAttack()
@@ -247,5 +264,23 @@ public class Champion : MonoBehaviour
             Vector3 point2 = new Vector3(x, y, 0) + position;
             Debug.DrawLine(point1, point2, color);
         }
+    }
+
+    void Regen()
+    {
+        if(mana < maxMana)
+        {
+            mana += Time.deltaTime * manaRegenRate;
+        }
+
+        if (stamina < maxStamina && !isRunning)
+        {
+            stamina += Time.deltaTime * staminaRegenRate;
+        }
+    }
+
+    public void SetPlayer(bool a)
+    {
+        player = a;
     }
 }

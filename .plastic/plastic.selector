@@ -1,4 +1,3 @@
-repository "Game jam Caracas-3@Techdragons@cloud"
+rep "Game jam Caracas-3@Techdragons@cloud"
   path "/"
-    br "/main"
-    co "/main"
+    smartbranch "/main"

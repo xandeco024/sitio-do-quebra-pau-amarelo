@@ -14,6 +14,12 @@ public class Emilia : Champion
     [SerializeField] private float cooldownSummonGuardian;
     [SerializeField] private GameObject guardian;
 
+
+    protected override void Awake()
+    {
+        base.Awake();
+        championName = "Emilia";
+    }
     protected override void Start()
     {
         base.Start();

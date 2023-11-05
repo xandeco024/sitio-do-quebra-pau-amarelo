@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class Saci : Champion
 {
+    protected override void Awake()
+    {
+        base.Awake();
+        championName = "Saci";
+    }
+
     protected override void Start()
     {
         base.Start();
