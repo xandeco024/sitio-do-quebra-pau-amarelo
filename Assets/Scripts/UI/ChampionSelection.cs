@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ChampionSelection : MonoBehaviour
 {
     private AudioSource chooseYourCharacter;
-    private AudioSource audioSource;
+    private AudioSource clickSFX;
     public Text buttonText;
     public bool isChampionSelected;
     public string ChampionSelected;
@@ -19,7 +19,7 @@ public class ChampionSelection : MonoBehaviour
 
     public void OnButtonPressed()
     {
-        audioSource.Play();
+        clickSFX.Play();
         isChampionSelected = true;
     }
 }

@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 7754068682070270264}
   - component: {fileID: 3924919275317587715}
   - component: {fileID: 2103179518699262557}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Saci
-  m_TagString: Untagged
+  m_TagString: Champion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4781080651426958931}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.67, y: 0.18, z: 0.004448076}
+  m_LocalPosition: {x: 22.92, y: -0.28, z: 0.004448076}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -121,20 +121,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b1182e45ea9c664fb8430f2802b80bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicBulletPrefab: {fileID: 0}
-  maxHealth: 100
-  maxMana: 100
-  maxStamina: 70
-  magicDamage: 35
-  attackDamage: 20
+  basicBulletPrefab: {fileID: 1998298768275980069, guid: 51bcf3a8ff4ab5d43b4f040c69fe1d30, type: 3}
+  championName: Saci Perere
+  maxHealth: 140
+  maxMana: 50
+  maxStamina: 100
+  magicDamage: 10
+  attackDamage: 30
   attackRange: 1
-  attackSpeed: 2
-  attackResistance: 4
-  magicResistance: 7
-  attackPenetration: 4
-  magicPenetration: 5
+  attackSpeed: 1.8
+  attackResistance: 20
+  magicResistance: 10
+  attackPenetration: 30
+  magicPenetration: 30
   moveSpeed: 8
-  player: 1
 --- !u!61 &3924919275317587715
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -178,7 +178,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2, y: 2}
+  m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
 --- !u!50 &2103179518699262557
 Rigidbody2D:
@@ -195,7 +195,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
