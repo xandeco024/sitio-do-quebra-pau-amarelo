@@ -18,21 +18,21 @@ public class Visconde : Champion
 
     protected override void Update()
     {
-        if (player)
+        if (isPlayer)
         {
             base.Update();
+            //PoisonousFood();
+        }
 
-            //if (isRunning) championAnimator.speed = 2f;
-            //else championAnimator.speed = 1;
-            //championAnimator.SetFloat("Horizontal", movement.x);
-            //championAnimator.SetFloat("Vertical", movement.y);
-            //championAnimator.SetFloat("Speed", movement.sqrMagnitude);
+        else
+        {
+            BasicIA();
         }
     }
 
     protected override void FixedUpdate()
     {
-        if (player)
+        if (isPlayer)
         {
             base.FixedUpdate();
         }

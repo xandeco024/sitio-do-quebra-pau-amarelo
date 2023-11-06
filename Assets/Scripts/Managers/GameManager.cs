@@ -1,30 +1,39 @@
 using Cinemachine;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Tilemaps;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
-    private GameObject target;
     private Champion currentPlayer;
-
     // Variavies Acessiveis
-    public GameObject Target { get { return target; } }
-    public Champion CurrentPlayer { get {  return currentPlayer; } }
+    public Champion CurrentPlayer { get { return currentPlayer; } }
+    public List<Champion> ChampionsList { get { return championsList; } }
 
-    private int SelectedChampion;
     private Vector2 spawnPoint = new Vector2(14, 10);
 
+    private List<Champion> championsList;
+
     [SerializeField] private GameObject[] championPrefabList;
-    [SerializeField] private Champion[] sceneChampionList;
+    [SerializeField] private Camera miniMapCamera;
+    [SerializeField] private GameObject iconMiniMap;
+    [SerializeField] private GameUIManager gameUIManager;
+
+    [SerializeField] private Tilemap tileMap;
+    [SerializeField] private int enemyCount;
 
     private void Awake()
     {
+
         GameObject currentPlayerObject = Instantiate(championPrefabList[PlayerPrefs.GetInt("selectedChampion")], spawnPoint, Quaternion.identity);
         currentPlayerObject.GetComponent<Champion>().SetPlayer(true);
         currentPlayer = currentPlayerObject.GetComponent<Champion>();
+
+        miniMapCamera.transform.parent = currentPlayer.transform;
+        miniMapCamera.transform.position = new Vector3(
+            currentPlayer.transform.position.x,
+            currentPlayer.transform.position.y, -19);
+        iconMiniMap.transform.parent = currentPlayer.transform;
     }
 
     void Start()
@@ -35,46 +44,67 @@ public class GameManager : MonoBehaviour
         {
             virtualCamera.Follow = currentPlayer.transform;
         }
+
+        Champion[] championsArray = GameObject.FindObjectsOfType<Champion>();
+        championsList = new List<Champion>(championsArray);
+
+        SpawnEnemies();
     }
 
     void Update()
     {
-        TargetHandler();
+        iconMiniMap.transform.position = currentPlayer.transform.position;
 
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        Champion[] championsArray = GameObject.FindObjectsOfType<Champion>();
+        championsList = new List<Champion>(championsArray);
+
+        if (currentPlayer.IsDead)
         {
-            Debug.Log("penis");
-            PlayerPrefs.SetInt("selectedChampion", 1);
+            Debug.Log("Game over");
+            gameUIManager.HandleGameOver();
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha2)) 
+        else if (championsList.Count == 1)
         {
-            PlayerPrefs.SetInt("selectedChampion", 2);
-        }
-
-        if(Input.GetKeyDown(KeyCode.Alpha3)) 
-        {
-            Debug.Log(PlayerPrefs.GetInt("selectedChampion"));
+            if (championsList[0] == currentPlayer)
+            {
+                Debug.Log("Win");
+                gameUIManager.HandleWin();
+            }
         }
     }
 
-    void TargetHandler()
+    void SpawnEnemies()
     {
-        if (Input.GetMouseButtonDown(0))
+        List<Vector3> possiblePositions = new List<Vector3>();
+
+        // Primeiro, coletamos todas as posições possíveis
+        for (int n = tileMap.cellBounds.xMin; n < tileMap.cellBounds.xMax; n++)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            int layerMask = 1 << LayerMask.NameToLayer("Champion");
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, layerMask);
-
-            if (hit.collider != null)
+            for (int p = tileMap.cellBounds.yMin; p < tileMap.cellBounds.yMax; p++)
             {
-                target = hit.collider.gameObject;
-            }
-            else
-            {
-                target = null;
+                Vector3Int localPlace = new Vector3Int(n, p, (int)tileMap.transform.position.y);
+                Vector3 place = tileMap.CellToWorld(localPlace);
+
+                if (tileMap.HasTile(localPlace))
+                {
+                    possiblePositions.Add(place);
+                }
             }
         }
+
+        // Em seguida, geramos os inimigos em posições aleatórias
+        for (int i = 0; i < enemyCount; i++)
+        {
+            if (possiblePositions.Count > 0)
+            {
+                int randomIndex = Random.Range(0, possiblePositions.Count);
+                Vector3 spawnPosition = possiblePositions[randomIndex];
+                possiblePositions.RemoveAt(randomIndex); // Removemos a posição para não gerar dois inimigos no mesmo lugar
+
+                Instantiate(championPrefabList[Random.Range(0, championPrefabList.Length)], spawnPosition, Quaternion.identity);
+            }
+        }
+
     }
 }

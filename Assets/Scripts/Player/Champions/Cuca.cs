@@ -26,16 +26,21 @@ public class Cuca : Champion
 
     protected override void Update()
     {
-        if(player)
+        if(isPlayer)
         {
             base.Update();
             //PoisonousFood();
+        }
+
+        else
+        {
+            BasicIA();
         }
     }
 
     protected override void FixedUpdate()
     {
-        if(player)
+        if(isPlayer)
         {
             base.FixedUpdate();
         }

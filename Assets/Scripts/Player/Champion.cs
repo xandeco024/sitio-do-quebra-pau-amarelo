@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 public class Champion : MonoBehaviour
 {
     [Header("Components")]
@@ -10,6 +9,7 @@ public class Champion : MonoBehaviour
     protected SpriteRenderer championSR;
     protected BoxCollider2D championCol;
     [SerializeField] GameObject basicBulletPrefab;
+    [SerializeField] Sprite bulletSprite;
 
     [Header("Attributes")]
     [SerializeField] protected string championName;
@@ -35,14 +35,19 @@ public class Champion : MonoBehaviour
     protected float stamina;
 
     [Header("Stats")]
-    protected bool player;
+    protected bool isPlayer;
     protected bool canAttack = true;
     protected bool interacting;
+    protected bool isDead;
 
     [Header("Movement")]
     protected bool isRunning;
     protected Vector2 movement;
     private Color originalColor, damageColor;
+
+    [Header("IA")]
+    protected Champion target;
+    protected Vector2 direction;
 
 
     // Variaveis Acessiveis
@@ -61,6 +66,7 @@ public class Champion : MonoBehaviour
     public float MagicResistance { get { return magicResistance; } }
     public float MoveSpeed { get { return moveSpeed; } }
     public bool Interacting { get { return interacting; } }
+    public bool IsDead { get { return isDead; } }
 
 
 
@@ -84,6 +90,13 @@ public class Champion : MonoBehaviour
 
         originalColor = championSR.color;
         damageColor = Color.red;
+
+        if (!isPlayer)
+        {
+            Debug.Log("Startou IA");
+            StartCoroutine(SearchTarget());
+            StartCoroutine(ChangeDirection());
+        }
     }
 
     protected virtual void Update()
@@ -101,13 +114,18 @@ public class Champion : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.J)) 
         {
-            TakeDamage(10, 0, 0, 0, false, transform.position);
-            stamina -= 10;
+            //TakeDamage(10, 0, 0, 0, false, transform.position);
+            //mana -= 10;
         }
 
         if(Input.GetMouseButton(0) && canAttack)
         {
-            BasicAttack();
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
+            Vector2 smallCirclePosition = (Vector2)transform.position + direction * attackRange;
+            DrawCircle(smallCirclePosition, .5f, Color.red);
+
+            BasicAttack(direction);
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -119,7 +137,11 @@ public class Champion : MonoBehaviour
 
         DetectMovement();
         Regen();
-        //RotateToLookAtCursor();
+
+        if(health <= 0)
+        {
+            isDead = true;
+        }
     }
 
     protected virtual void FixedUpdate()
@@ -163,22 +185,9 @@ public class Champion : MonoBehaviour
         championRB.velocity = moveVector;
     }
 
-    void RotateToLookAtCursor()
-    {
-        Vector2 mousePosition = Input.mousePosition;
-        mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        float angle = Mathf.Atan2(mousePosition.y - transform.position.y, mousePosition.x - transform.position.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-    }
-
-    private void BasicAttack()
+    private void BasicAttack(Vector2 direction)
     {
         //Debug.Log("Tentou atacar");
-
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
-        Vector2 smallCirclePosition = (Vector2)transform.position + direction * attackRange;
-        DrawCircle(smallCirclePosition, .5f, Color.red);
 
         if (attackRange <= 1.25)
         {
@@ -204,8 +213,9 @@ public class Champion : MonoBehaviour
         {
             // rangedAttack
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            GameObject basicBulletInstance = Instantiate(basicBulletPrefab, ((Vector2)transform.position + direction * attackRange), Quaternion.Euler(new Vector3(0, 0, angle)));
+            GameObject basicBulletInstance = Instantiate(basicBulletPrefab, ((Vector2)transform.position + direction * 1), Quaternion.Euler(new Vector3(0, 0, angle)));
             basicBulletInstance.GetComponent<BasicBullet>().Champion = this;
+            basicBulletInstance.GetComponent<BasicBullet>().BulletSprite = bulletSprite;
 
         }
 
@@ -281,6 +291,120 @@ public class Champion : MonoBehaviour
 
     public void SetPlayer(bool a)
     {
-        player = a;
+        isPlayer = a;
     }
+
+    protected void Die()
+    {
+        Destroy(gameObject);
+    }
+
+    #region IA
+
+    protected void BasicIA()
+    {
+        if (health <= 0) isDead = true;
+
+        if (isDead && !isPlayer)
+        {
+            Die();
+        }
+
+        //atualiza target
+
+        // se target, se dentro do attackrange, ataca, senão, follow até target entrar no attackrange
+
+        // se não target, zanza por ai
+
+        // IA
+
+        if (target != null)
+        {
+            // follow
+            MoveAround();
+            //attack
+
+            Vector2 targetDirection = ((Vector2)target.transform.position - (Vector2)transform.position).normalized;
+
+            if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
+            {
+                Debug.Log("atacando");
+                if(canAttack)
+                {
+                    Debug.Log("Atacou e afins");
+                    BasicAttack(targetDirection);
+                }
+            }
+
+            else
+            {
+                Follow(targetDirection);
+                Debug.Log("Perseguição intensa");
+            }
+
+        }
+
+        else
+        {
+            MoveAround();
+        }
+
+        void MoveAround()
+        {
+            Vector2 moveVector = direction * moveSpeed;
+            championRB.velocity = moveVector;
+        }
+
+        void Follow(Vector2 targetDirection)
+        {
+            Vector2 moveVector = targetDirection * moveSpeed;
+
+            championRB.velocity = moveVector;
+        }
+    }
+
+    IEnumerator ChangeDirection()
+    {
+        while (true)
+        {
+            direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+            yield return new WaitForSeconds(5f);
+        }
+    }
+
+    IEnumerator SearchTarget()
+    {
+        while (true)
+        {
+            target = null;
+
+            Collider2D[] champions = Physics2D.OverlapCircleAll(transform.position, 10f);
+            DrawCircle(transform.position, 10f, Color.cyan);
+
+            float closestTargetDistance = Mathf.Infinity;
+
+            foreach (Collider2D champion in champions)
+            {
+                if (champion.gameObject == this.gameObject)
+                {
+                    continue;
+                }
+
+                if (champion.gameObject.tag == "Champion")
+                {
+                    float distance = Vector2.Distance(transform.position, champion.transform.position);
+
+                    if (distance < closestTargetDistance)
+                    {
+                        closestTargetDistance = distance;
+                        target = champion.GetComponent<Champion>();
+                    }
+                }
+            }
+
+            yield return new WaitForSeconds(2f);
+        }
+    }
+
+    #endregion
 }

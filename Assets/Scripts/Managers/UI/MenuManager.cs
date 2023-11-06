@@ -17,6 +17,8 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
+        if (Time.timeScale < 1) Time.timeScale = 1;
     }
 
     public void StartGame()
@@ -28,6 +30,7 @@ public class MenuManager : MonoBehaviour
     public void Options()
     {
         //audioSource.PlayOneShot(clips[0]);
+        optionsCanvas.SetActive(true);
     }
 
     public void QuitGame()

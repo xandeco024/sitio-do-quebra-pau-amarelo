@@ -20,7 +20,10 @@ AudioMixerController:
   - guids:
     - 37441077298af524b8a925dc0ad20a67
     name: View
-  m_CurrentViewIndex: 0
+  - guids:
+    - 37441077298af524b8a925dc0ad20a67
+    name: View - Copy
+  m_CurrentViewIndex: 1
   m_TargetSnapshot: {fileID: 24500006}
 --- !u!243 &24300002
 AudioMixerGroupController:
@@ -37,7 +40,7 @@ AudioMixerGroupController:
   m_Send: 00000000000000000000000000000000
   m_Effects:
   - {fileID: 24400004}
-  m_UserColorIndex: 4
+  m_UserColorIndex: 3
   m_Mute: 0
   m_Solo: 0
   m_BypassEffects: 0

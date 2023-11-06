@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,8 @@ public class HUDManager : MonoBehaviour
     private GameManager gameManager;
 
     [SerializeField] private Slider healthSlider, manaSlider, staminaSlider;
+    [SerializeField] private TextMeshProUGUI remainingPlayersText;
+
     //private Image healthHandleImage, manaHandleImage, staminaHandleImage;
 
     void Start()
@@ -19,6 +22,7 @@ public class HUDManager : MonoBehaviour
 
     void Update()
     {
+        remainingPlayersText.text = gameManager.ChampionsList.Count.ToString();
         HandleSliders();
     }
 

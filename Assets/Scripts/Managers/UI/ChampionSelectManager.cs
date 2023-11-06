@@ -10,6 +10,7 @@ public class ChampionSelectManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI selectedChampionText;
     [SerializeField] private Animator selectedChampionImageAnimator;
+    [Header("Botões")]
     [SerializeField] private Button[] championButtons;
     [SerializeField] private Button[] statsButtons;
    
@@ -19,12 +20,13 @@ public class ChampionSelectManager : MonoBehaviour
     [SerializeField] private Button[] rotateButtons;
 
     [Header("Canvas")]
-    [SerializeField] GameObject menuCanvas, championSelectCanvas;
+    [SerializeField] GameObject menuCanvas, championSelectCanvas, optionsGame;
 
     [Header("Variables")]
     public int rotateChampion;
     private Champion selectedChampion;
     private TextMeshProUGUI[] statsText;
+    [SerializeField] private AudioSource clickSFX;
 
 
     void Start()
@@ -150,6 +152,12 @@ public class ChampionSelectManager : MonoBehaviour
     public void ReturnToMenu()
     {
         menuCanvas.SetActive(true);
+        championSelectCanvas.SetActive(false);
+    }
+
+    public void GoToOptions()
+    {
+        optionsGame.SetActive(true);
         championSelectCanvas.SetActive(false);
     }
 }

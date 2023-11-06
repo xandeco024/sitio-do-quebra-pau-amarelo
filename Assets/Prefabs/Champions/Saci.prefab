@@ -129,7 +129,7 @@ MonoBehaviour:
   magicDamage: 10
   attackDamage: 30
   attackRange: 1
-  attackSpeed: 1.8
+  attackSpeed: 1.2
   attackResistance: 20
   magicResistance: 10
   attackPenetration: 30
@@ -178,7 +178,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
+  m_Size: {x: 0.5, y: 2}
   m_EdgeRadius: 0
 --- !u!50 &2103179518699262557
 Rigidbody2D:

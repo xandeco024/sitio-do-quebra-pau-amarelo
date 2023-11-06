@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicBulletPrefab: {fileID: 1998298768275980069, guid: 51bcf3a8ff4ab5d43b4f040c69fe1d30, type: 3}
+  bulletSprite: {fileID: 21300000, guid: 14cff2fe5b144d04c9e667da2e9c4f6e, type: 3}
   championName: Emilia
   maxHealth: 130
   maxMana: 200
@@ -156,7 +157,7 @@ MonoBehaviour:
   magicDamage: 30
   attackDamage: 10
   attackRange: 2
-  attackSpeed: 1.4
+  attackSpeed: 1
   attackResistance: 10
   magicResistance: 60
   attackPenetration: 0
@@ -210,5 +211,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6, y: 1.25}
+  m_Size: {x: 0.5, y: 2}
   m_EdgeRadius: 0

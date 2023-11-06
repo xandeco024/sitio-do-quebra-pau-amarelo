@@ -130,7 +130,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 2}
   m_EdgeRadius: 0
 --- !u!50 &3788290421815151228
 Rigidbody2D:
@@ -158,7 +158,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &2359773208759880880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicBulletPrefab: {fileID: 1998298768275980069, guid: 51bcf3a8ff4ab5d43b4f040c69fe1d30, type: 3}
+  bulletSprite: {fileID: 21300000, guid: ed806151fecf3d34e8144b95029c5c14, type: 3}
   championName: Visconde de Sabugosa
   maxHealth: 160
   maxMana: 120
@@ -179,7 +180,7 @@ MonoBehaviour:
   magicDamage: 15
   attackDamage: 25
   attackRange: 3
-  attackSpeed: 1.6
+  attackSpeed: 0.6
   attackResistance: 20
   magicResistance: 40
   attackPenetration: 10

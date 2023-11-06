@@ -1,6 +1,3 @@
- using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UI;
 using UnityEngine;
 
 public class Emilia : Champion
@@ -27,18 +24,22 @@ public class Emilia : Champion
 
     protected override void Update()
     {
-        if (player)
+        if (isPlayer)
         {
             base.Update();
-            //AnnoyPower();
-            //PowerGuardianImaginary();
+            //PoisonousFood();
+        }
+
+        else
+        {
+            BasicIA();
         }
     }
 
     
     protected override void FixedUpdate()
     {
-        if(player)
+        if(isPlayer)
         {
             base.FixedUpdate();
         }

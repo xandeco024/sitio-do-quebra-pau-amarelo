@@ -8,7 +8,6 @@ public class Saci : Champion
     protected override void Awake()
     {
         base.Awake();
-        championName = "Saci";
     }
 
     protected override void Start()
@@ -18,7 +17,7 @@ public class Saci : Champion
 
     protected override void Update()
     {
-        if (player)
+        if (isPlayer)
         {
             base.Update();
 
@@ -28,11 +27,16 @@ public class Saci : Champion
             championAnimator.SetFloat("Vertical", movement.y);
             championAnimator.SetFloat("Speed", movement.sqrMagnitude);
         }
+
+        else
+        {
+            BasicIA();
+        }
     }
 
     protected override void FixedUpdate()
     {
-        if (player)
+        if (isPlayer)
         {
             base.FixedUpdate();
         }
