@@ -39,6 +39,7 @@ public class Champion : MonoBehaviour
     protected bool canAttack = true;
     protected bool interacting;
     protected bool isDead;
+    protected Vector2 aim;
 
     [Header("Movement")]
     protected bool isRunning;
@@ -47,7 +48,6 @@ public class Champion : MonoBehaviour
 
     [Header("IA")]
     protected Champion target;
-    protected Vector2 direction;
 
 
     // Variaveis Acessiveis
@@ -60,6 +60,9 @@ public class Champion : MonoBehaviour
     public float Stamina { get { return stamina; } set { if (value >= 0) { stamina = value; } } }
     public float AttackDamage { get { return attackDamage; } }
     public float MagicDamage { get { return magicDamage; } }
+    public bool CanAttack { get { return canAttack; } }
+    public float AttackSpeed { get { return attackSpeed; } }
+    public float AttackRange { get { return attackRange; } }
     public float AttackPenetration { get { return attackPenetration; } }
     public float MagicPenetration { get { return MagicPenetration; } }
     public float AttackResistance { get { return attackResistance; } }
@@ -67,8 +70,6 @@ public class Champion : MonoBehaviour
     public float MoveSpeed { get { return moveSpeed; } }
     public bool Interacting { get { return interacting; } }
     public bool IsDead { get { return isDead; } }
-
-
 
     protected virtual void Awake()
     {
@@ -351,7 +352,7 @@ public class Champion : MonoBehaviour
 
         void MoveAround()
         {
-            Vector2 moveVector = direction * moveSpeed;
+            Vector2 moveVector = aim * moveSpeed;
             championRB.velocity = moveVector;
         }
 
@@ -367,7 +368,7 @@ public class Champion : MonoBehaviour
     {
         while (true)
         {
-            direction = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+            aim = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
             yield return new WaitForSeconds(5f);
         }
     }
