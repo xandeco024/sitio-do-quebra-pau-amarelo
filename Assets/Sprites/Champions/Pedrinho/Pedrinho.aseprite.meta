@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e293e783169f2ac48a3ac9d7ef2e5ecb
+guid: 02cbf6614927e2f4a83b10b3ca80ade6
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: visconde_Frame_0
+  - name: Pedrinho_Frame_0
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -128,9 +128,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 16
-      height: 32
-    spriteID: 4c57432a089fab2419514a35e2a07e85
+      width: 14
+      height: 30
+    spriteID: dc1f1b75e85dec3478ee0087b8fd00e1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: visconde_Frame_1
+  - name: Pedrinho_Frame_1
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -147,10 +147,10 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 44
-      width: 16
-      height: 32
-    spriteID: 6b3d89c3072237840894c4f52f9d22fe
+      y: 42
+      width: 14
+      height: 30
+    spriteID: 81c3ec92480ef5e4c97f31dfea8d4385
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -158,39 +158,59 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 44}
-  - name: visconde_Frame_2
+    uvTransform: {x: 4, y: 42}
+  - name: Pedrinho_Frame_2
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 28
+      x: 26
+      y: 80
+      width: 14
+      height: 29
+    spriteID: cc870aa599e84424cb765272f163baba
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 26, y: 80}
+  - name: Pedrinho_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 80
+      width: 14
+      height: 30
+    spriteID: 48707093f992a5849b2cba62d9940dae
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 80}
+  - name: Pedrinho_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 48
       y: 4
-      width: 16
-      height: 31
-    spriteID: 45029875524d88b489a1363ee7e66f9c
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 28, y: 4}
-  - name: visconde_Frame_3
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 28
-      y: 43
       width: 14
-      height: 31
-    spriteID: 7825d73391b8346428212ed53d17a45e
+      height: 29
+    spriteID: 4f98d24aa84ddb7418c4375e4470ddf9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -198,19 +218,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 19, y: 43}
-  - name: visconde_Frame_4
+    uvTransform: {x: 48, y: 4}
+  - name: Pedrinho_Frame_5
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 28
-      y: 82
+      x: 26
+      y: 4
       width: 14
-      height: 31
-    spriteID: a7c07722b54bbbf40983ca620f86f36b
+      height: 30
+    spriteID: 8be7a381cab6c3f4cb6880da173ed7d9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -218,19 +238,19 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 19, y: 82}
-  - name: visconde_Frame_5
+    uvTransform: {x: 26, y: 4}
+  - name: Pedrinho_Frame_6
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 84
-      width: 16
-      height: 32
-    spriteID: 715e0da21ce37c74088eeb923861067c
+      x: 48
+      y: 41
+      width: 14
+      height: 29
+    spriteID: 3cd0d1b5e4b15ca47a00d64558bd08cd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -238,64 +258,128 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: -4, y: 84}
+    uvTransform: {x: 48, y: 41}
+  - name: Pedrinho_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 26
+      y: 42
+      width: 14
+      height: 30
+    spriteID: 5ccdddcceede9a2438f60c779a2b90c5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 26, y: 42}
+  - name: Pedrinho_Frame_8
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 48
+      y: 78
+      width: 14
+      height: 29
+    spriteID: 6226c1f2c37cb6540b490b0f307bd9d6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 48, y: 78}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -855209901
-    name: visconde
+    guid: -287947997
+    name: Pedrinho
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: visconde_Frame_0
+    - name: Pedrinho_Frame_0
       frameIndex: 0
       cellRect:
-        x: 8
+        x: 9
         y: 0
-        width: 16
-        height: 32
-      spriteId: 4c57432a089fab2419514a35e2a07e85
-    - name: visconde_Frame_1
+        width: 14
+        height: 30
+      spriteId: dc1f1b75e85dec3478ee0087b8fd00e1
+    - name: Pedrinho_Frame_1
       frameIndex: 1
       cellRect:
-        x: 8
+        x: 9
         y: 0
-        width: 16
-        height: 32
-      spriteId: 6b3d89c3072237840894c4f52f9d22fe
-    - name: visconde_Frame_2
+        width: 14
+        height: 30
+      spriteId: 81c3ec92480ef5e4c97f31dfea8d4385
+    - name: Pedrinho_Frame_2
       frameIndex: 2
       cellRect:
-        x: 8
+        x: 9
         y: 0
-        width: 16
-        height: 31
-      spriteId: 45029875524d88b489a1363ee7e66f9c
-    - name: visconde_Frame_3
+        width: 14
+        height: 29
+      spriteId: cc870aa599e84424cb765272f163baba
+    - name: Pedrinho_Frame_3
       frameIndex: 3
       cellRect:
-        x: 0
+        x: 9
         y: 0
-        width: 32
-        height: 32
-      spriteId: 7825d73391b8346428212ed53d17a45e
-    - name: visconde_Frame_4
+        width: 14
+        height: 30
+      spriteId: 48707093f992a5849b2cba62d9940dae
+    - name: Pedrinho_Frame_4
       frameIndex: 4
       cellRect:
-        x: 0
+        x: 9
         y: 0
-        width: 32
-        height: 32
-      spriteId: a7c07722b54bbbf40983ca620f86f36b
-    - name: visconde_Frame_5
+        width: 14
+        height: 29
+      spriteId: 4f98d24aa84ddb7418c4375e4470ddf9
+    - name: Pedrinho_Frame_5
       frameIndex: 5
       cellRect:
-        x: 0
+        x: 9
         y: 0
-        width: 32
-        height: 32
-      spriteId: 715e0da21ce37c74088eeb923861067c
+        width: 14
+        height: 30
+      spriteId: 8be7a381cab6c3f4cb6880da173ed7d9
+    - name: Pedrinho_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 9
+        y: 0
+        width: 14
+        height: 29
+      spriteId: 3cd0d1b5e4b15ca47a00d64558bd08cd
+    - name: Pedrinho_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 9
+        y: 0
+        width: 14
+        height: 30
+      spriteId: 5ccdddcceede9a2438f60c779a2b90c5
+    - name: Pedrinho_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 9
+        y: 0
+        width: 14
+        height: 29
+      spriteId: 6226c1f2c37cb6540b490b0f307bd9d6
     linkedCells: []
     parentIndex: -1
   platformSettings: []
