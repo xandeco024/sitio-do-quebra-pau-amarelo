@@ -94,7 +94,6 @@ public class Champion : MonoBehaviour
 
         if (!isPlayer)
         {
-            Debug.Log("Startou IA");
             StartCoroutine(SearchTarget());
             StartCoroutine(ChangeDirection());
         }
@@ -313,9 +312,9 @@ public class Champion : MonoBehaviour
 
         //atualiza target
 
-        // se target, se dentro do attackrange, ataca, senão, follow até target entrar no attackrange
+        // se target, se dentro do attackrange, ataca, senï¿½o, follow atï¿½ target entrar no attackrange
 
-        // se não target, zanza por ai
+        // se nï¿½o target, zanza por ai
 
         // IA
 
@@ -329,10 +328,8 @@ public class Champion : MonoBehaviour
 
             if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
             {
-                Debug.Log("atacando");
                 if(canAttack)
                 {
-                    Debug.Log("Atacou e afins");
                     BasicAttack(targetDirection);
                 }
             }
@@ -340,7 +337,6 @@ public class Champion : MonoBehaviour
             else
             {
                 Follow(targetDirection);
-                Debug.Log("Perseguição intensa");
             }
 
         }

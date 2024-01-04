@@ -1,34 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-
+using Random= UnityEngine.Random;
 public class Chest : MonoBehaviour
 {
-    [SerializeField] GameObject[] itens;
+    [SerializeField] private GameObject[] itens;
+    private Transform chestPosition;
     private GameManager gameManager;
-    // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
         gameManager = FindObjectOfType<GameManager>();
+        chestPosition = GetComponent<Transform>();
     }
+    void OnTriggerStay2D(Collider2D other)
+    {   
+        if(gameManager.CurrentPlayer.Interacting){
+            Vector2 spawnPosition = new Vector2(chestPosition.position.x,chestPosition.position.y + 1);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Champion")
-        {
-            if (gameManager.CurrentPlayer.Interacting)
-            {
-                Vector3 directionSpawn = 
-                    new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-                Instantiate(itens[Random.Range(0, itens.Length)], directionSpawn, transform.rotation);
-            }
+            Instantiate(itens[Random.Range(0,itens.Length)],spawnPosition,chestPosition
+            .rotation);
+            Destroy(this);
         }
-        
     }
 }

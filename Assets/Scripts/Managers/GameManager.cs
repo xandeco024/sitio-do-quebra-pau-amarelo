@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
     {
         List<Vector3> possiblePositions = new List<Vector3>();
 
-        // Primeiro, coletamos todas as posições possíveis
+        // Primeiro, coletamos todas as posiï¿½ï¿½es possï¿½veis
         for (int n = tileMap.cellBounds.xMin; n < tileMap.cellBounds.xMax; n++)
         {
             for (int p = tileMap.cellBounds.yMin; p < tileMap.cellBounds.yMax; p++)
@@ -93,14 +93,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // Em seguida, geramos os inimigos em posições aleatórias
+        // Em seguida, geramos os inimigos em posiï¿½ï¿½es aleatï¿½rias
         for (int i = 0; i < enemyCount; i++)
         {
             if (possiblePositions.Count > 0)
             {
                 int randomIndex = Random.Range(0, possiblePositions.Count);
                 Vector3 spawnPosition = possiblePositions[randomIndex];
-                possiblePositions.RemoveAt(randomIndex); // Removemos a posição para não gerar dois inimigos no mesmo lugar
+                possiblePositions.RemoveAt(randomIndex); // Removemos a posiï¿½ï¿½o para nï¿½o gerar dois inimigos no mesmo lugar
 
                 Instantiate(championPrefabList[Random.Range(0, championPrefabList.Length)], spawnPosition, Quaternion.identity);
             }
