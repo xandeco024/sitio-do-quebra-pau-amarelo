@@ -84,6 +84,7 @@ public class ChampionSelectManager : MonoBehaviour
         selectedChampionImageAnimator.SetTrigger("Pedrinho");
         PlayerPrefs.SetInt("selectedChampion", 0);
         ChampionUpdate(selectedChampion);
+        championButtons[0].Select();
     }
 
     void RabicoSelected()
