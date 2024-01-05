@@ -15,13 +15,18 @@ public class GameUIManager : MonoBehaviour
 
     void Update()
     {
-        
+        PauseMenu();
     }
 
     public void HandleGameOver()
     {
         if(!gameOverCanvas.activeSelf)
         {
+            if(pauseCanvas.activeSelf || settingsCanvas.activeSelf){
+                pauseCanvas.SetActive(false);
+                settingsCanvas.SetActive(false);
+            }
+
             gameOverCanvas.SetActive(true);
             Time.timeScale = 0.0f;
         }
@@ -36,6 +41,14 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+    private void PauseMenu(){
+
+        if(Input.GetKeyDown(KeyCode.Escape) && pauseCanvas.activeSelf)
+            pauseCanvas.SetActive(false);
+
+        else if(Input.GetKeyDown(KeyCode.Escape) && !pauseCanvas.activeSelf)
+            pauseCanvas.SetActive(true);
+    }
     public void BackToMenu()
     {
         SceneManager.LoadScene("MainMenu");

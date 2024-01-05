@@ -84,7 +84,7 @@ public class Champion : MonoBehaviour
         championRB = GetComponent<Rigidbody2D>();
         championAnimator = GetComponent<Animator>();
         championCol = GetComponent<BoxCollider2D>();
-
+        
         health = maxHealth;
         mana = maxMana;
         stamina = maxStamina;
@@ -94,7 +94,6 @@ public class Champion : MonoBehaviour
 
         if (!isPlayer)
         {
-            Debug.Log("Startou IA");
             StartCoroutine(SearchTarget());
             StartCoroutine(ChangeDirection());
         }
@@ -155,7 +154,6 @@ public class Champion : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-
         if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
         {
             isRunning = true;
@@ -170,9 +168,8 @@ public class Champion : MonoBehaviour
 
     void HandleMovement()
     {
-        Vector2 moveVector = new Vector2(movement.x, movement.y);
-        moveVector = moveVector.normalized;
-
+        Vector2 moveVector = new Vector2(movement.x, movement.y).normalized;
+    
         if (isRunning)
         {
             moveVector = moveVector * moveSpeed * 1.5f;
@@ -313,9 +310,9 @@ public class Champion : MonoBehaviour
 
         //atualiza target
 
-        // se target, se dentro do attackrange, ataca, senão, follow até target entrar no attackrange
+        // se target, se dentro do attackrange, ataca, senï¿½o, follow atï¿½ target entrar no attackrange
 
-        // se não target, zanza por ai
+        // se nï¿½o target, zanza por ai
 
         // IA
 
@@ -329,10 +326,8 @@ public class Champion : MonoBehaviour
 
             if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
             {
-                Debug.Log("atacando");
                 if(canAttack)
                 {
-                    Debug.Log("Atacou e afins");
                     BasicAttack(targetDirection);
                 }
             }
@@ -340,7 +335,6 @@ public class Champion : MonoBehaviour
             else
             {
                 Follow(targetDirection);
-                Debug.Log("Perseguição intensa");
             }
 
         }
