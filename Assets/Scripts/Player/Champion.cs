@@ -84,7 +84,7 @@ public class Champion : MonoBehaviour
         championRB = GetComponent<Rigidbody2D>();
         championAnimator = GetComponent<Animator>();
         championCol = GetComponent<BoxCollider2D>();
-
+        
         health = maxHealth;
         mana = maxMana;
         stamina = maxStamina;
@@ -154,7 +154,6 @@ public class Champion : MonoBehaviour
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-
         if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
         {
             isRunning = true;
@@ -169,9 +168,8 @@ public class Champion : MonoBehaviour
 
     void HandleMovement()
     {
-        Vector2 moveVector = new Vector2(movement.x, movement.y);
-        moveVector = moveVector.normalized;
-
+        Vector2 moveVector = new Vector2(movement.x, movement.y).normalized;
+    
         if (isRunning)
         {
             moveVector = moveVector * moveSpeed * 1.5f;
