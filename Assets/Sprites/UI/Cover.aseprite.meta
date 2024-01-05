@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3baf4292cce21334b9427a1311f007e0
+guid: e748d56d4eabba4489833e534baf7996
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,18 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: background
+  - name: Cover
     originalName: 
-    pivot: {x: 0.5, y: 0.06358381}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 228
-      height: 173
-    spriteID: 195a6415c8100c14a98dda0b99bdc8e5
+      width: 630
+      height: 500
+    spriteID: 224b3df31f9757a4cbc41200e35da5c6
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,23 +142,23 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1978471590
-    name: background
+    guid: 272568585
+    name: Cover
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: background
+    - name: Cover
       frameIndex: 0
       cellRect:
         x: 0
-        y: -11
-        width: 228
-        height: 173
-      spriteId: 195a6415c8100c14a98dda0b99bdc8e5
+        y: 0
+        width: 630
+        height: 500
+      spriteId: 224b3df31f9757a4cbc41200e35da5c6
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 228, y: 128}
+  canvasSize: {x: 630, y: 500}

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d311448693ec65c429382ecd81e8145f
+guid: 7c2ec30376eb97e43bbc49d64faabea0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -50,7 +50,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
     textureCompression: 0
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: background_0
+      name: Menu Buttons_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1024
-        width: 228
-        height: 128
+        y: 32
+        width: 64
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a5bf9d32756f3b44bc0d9c3ca41050b
-      internalID: -602396736
+      spriteID: e537d6a97cb08b047b06fb807b475034
+      internalID: -2047027899
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_1
+      name: Menu Buttons_1
       rect:
         serializedVersion: 2
-        x: 0
-        y: 896
-        width: 228
-        height: 128
+        x: 64
+        y: 32
+        width: 64
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7daf2dc82150c14d8bffc50b92cc9b3
-      internalID: -1763222795
+      spriteID: c053374c3498f5c4bbb7d212ed17a9be
+      internalID: 1593274518
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_2
+      name: Menu Buttons_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 768
-        width: 228
-        height: 128
+        y: 16
+        width: 64
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 64d5960459d37c7478cb14802a65b48a
-      internalID: -1141925926
+      spriteID: 18bcc63e8b984b843b01ed94f5aeed76
+      internalID: 1822085957
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_3
+      name: Menu Buttons_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 640
-        width: 228
-        height: 128
+        x: 64
+        y: 16
+        width: 64
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,104 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1d4613db71c7e54dabc678abce68ec0
-      internalID: -522375761
+      spriteID: 8fed10ea441b2df409259079ed890ddb
+      internalID: 1334424914
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: background_4
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 512
-        width: 228
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8a4e7dbc2987b8f4abe7e6b316ea92f7
-      internalID: -235910231
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: background_5
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 384
-        width: 228
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3b9e489e06842f24581ee56ec194a7f6
-      internalID: 783392042
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: background_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 256
-        width: 228
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4b1d30fc3dfd79646a467dec42841f55
-      internalID: -874035603
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: background_7
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 128
-        width: 228
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0cea18206e555b5498ae9f286daf6834
-      internalID: 1571727213
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: background_8
+      name: Menu Buttons_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 228
-        height: 128
+        width: 64
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -292,8 +208,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2fd76eba1c3bf83449dd7903e580f30e
-      internalID: -1306601343
+      spriteID: bde06878714754247973a2403e8dbdbd
+      internalID: 1891723280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Menu Buttons_5
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da63bfd585f628d4586e729a52f8bce3
+      internalID: -483997475
       vertices: []
       indices: 
       edges: []
@@ -309,15 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      background_0: -602396736
-      background_1: -1763222795
-      background_2: -1141925926
-      background_3: -522375761
-      background_4: -235910231
-      background_5: 783392042
-      background_6: -874035603
-      background_7: 1571727213
-      background_8: -1306601343
+      Menu Buttons_0: -2047027899
+      Menu Buttons_1: 1593274518
+      Menu Buttons_2: 1822085957
+      Menu Buttons_3: 1334424914
+      Menu Buttons_4: 1891723280
+      Menu Buttons_5: -483997475
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

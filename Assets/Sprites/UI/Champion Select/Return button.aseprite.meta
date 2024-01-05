@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 3baf4292cce21334b9427a1311f007e0
+guid: 9dc200f3e8d815e4791c1b75b40edcaf
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,18 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: background
+  - name: Return button
     originalName: 
-    pivot: {x: 0.5, y: 0.06358381}
+    pivot: {x: 0.5, y: -0.071428575}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 228
-      height: 173
-    spriteID: 195a6415c8100c14a98dda0b99bdc8e5
+      width: 32
+      height: 14
+    spriteID: 64e2747f50eb90545a38b6e663a4fbea
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,23 +142,23 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1978471590
-    name: background
+    guid: -73889592
+    name: Return button
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: background
+    - name: Return button
       frameIndex: 0
       cellRect:
         x: 0
-        y: -11
-        width: 228
-        height: 173
-      spriteId: 195a6415c8100c14a98dda0b99bdc8e5
+        y: 1
+        width: 32
+        height: 14
+      spriteId: 64e2747f50eb90545a38b6e663a4fbea
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 228, y: 128}
+  canvasSize: {x: 32, y: 16}
