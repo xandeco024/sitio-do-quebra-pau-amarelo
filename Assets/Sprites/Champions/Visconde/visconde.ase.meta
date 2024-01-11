@@ -167,7 +167,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 28
-      y: 4
+      y: 35
       width: 16
       height: 31
     spriteID: 45029875524d88b489a1363ee7e66f9c
@@ -178,18 +178,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 28, y: 4}
+    uvTransform: {x: 28, y: 35}
   - name: visconde_Frame_3
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: -0.04347826}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 28
-      y: 43
-      width: 14
-      height: 31
+      y: 4
+      width: 22
+      height: 23
     spriteID: 7825d73391b8346428212ed53d17a45e
     spriteBone: []
     spriteOutline: []
@@ -198,7 +198,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 19, y: 43}
+    uvTransform: {x: 28, y: 4}
   - name: visconde_Frame_4
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -207,7 +207,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 28
-      y: 82
+      y: 74
       width: 14
       height: 31
     spriteID: a7c07722b54bbbf40983ca620f86f36b
@@ -218,8 +218,28 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 19, y: 82}
+    uvTransform: {x: 19, y: 74}
   - name: visconde_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 58
+      y: 4
+      width: 14
+      height: 31
+    spriteID: 715e0da21ce37c74088eeb923861067c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 49, y: 4}
+  - name: visconde_Frame_6
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -230,7 +250,7 @@ ScriptedImporter:
       y: 84
       width: 16
       height: 32
-    spriteID: 715e0da21ce37c74088eeb923861067c
+    spriteID: c3a610687a1000446b2d391b3664f7cf
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -275,10 +295,10 @@ ScriptedImporter:
     - name: visconde_Frame_3
       frameIndex: 3
       cellRect:
-        x: 0
-        y: 0
-        width: 32
-        height: 32
+        x: 5
+        y: 1
+        width: 22
+        height: 23
       spriteId: 7825d73391b8346428212ed53d17a45e
     - name: visconde_Frame_4
       frameIndex: 4
@@ -296,6 +316,14 @@ ScriptedImporter:
         width: 32
         height: 32
       spriteId: 715e0da21ce37c74088eeb923861067c
+    - name: visconde_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 0
+        y: 0
+        width: 32
+        height: 32
+      spriteId: c3a610687a1000446b2d391b3664f7cf
     linkedCells: []
     parentIndex: -1
   platformSettings: []

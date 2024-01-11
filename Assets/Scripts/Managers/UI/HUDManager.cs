@@ -32,7 +32,6 @@ public class HUDManager : MonoBehaviour
 
     void HandleSliders()
     {
-        print(gameManager.CurrentPlayer);
         float normalizedHealth = gameManager.CurrentPlayer.Health / gameManager.CurrentPlayer.MaxHealth * 100;
         healthSlider.value = Mathf.Lerp(healthSlider.value, normalizedHealth, Time.deltaTime * 5);
          // Se o valor do controle deslizante for 0, torne a imagem do Handle transparente

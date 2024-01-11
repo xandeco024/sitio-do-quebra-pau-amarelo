@@ -6,12 +6,12 @@ public class Cuca : Champion
 {
 
 
-    [Header("Poison Attack")]
-    [SerializeField] private float radiusPoisounAttack;
+    //[Header("Poison Attack")]
+    //[SerializeField] private float radiusPoisounAttack;
 
-    [Header("Habilities")]
-    float cooldownInimig = 0;
-    float cooldownPoisounAttack = 0;
+    //[Header("Habilities")]
+    //float cooldownInimig = 0;
+    //float cooldownPoisounAttack = 0;
 
 
     protected override void Awake()
