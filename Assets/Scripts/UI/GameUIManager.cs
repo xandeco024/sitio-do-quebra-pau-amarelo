@@ -7,6 +7,9 @@ public class GameUIManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverCanvas, winCanvas, settingsCanvas, pauseCanvas, hudCanvas;
     private GameManager gameManager;
+    private bool isPaused;
+
+   public bool IsPaused { get { return isPaused; } }
 
     void Start()
     {
@@ -42,13 +45,21 @@ public class GameUIManager : MonoBehaviour
     }
 
     private void PauseMenu(){
+        if(Input.GetKeyDown(KeyCode.P) && pauseCanvas.activeSelf){
+           Resume();
+        }
 
-        if(Input.GetKeyDown(KeyCode.Escape) && pauseCanvas.activeSelf)
-            pauseCanvas.SetActive(false);
-
-        else if(Input.GetKeyDown(KeyCode.Escape) && !pauseCanvas.activeSelf)
+        else if(Input.GetKeyDown(KeyCode.P) && !pauseCanvas.activeSelf){
             pauseCanvas.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
+    
+    public void Resume(){
+        pauseCanvas.SetActive(false);
+        Time.timeScale = 1f;
+    }
+
     public void BackToMenu()
     {
         SceneManager.LoadScene("MainMenu");

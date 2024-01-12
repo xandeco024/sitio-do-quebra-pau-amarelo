@@ -21,7 +21,7 @@ public class PotionHealth : MonoBehaviour
                 }
 
                 else if(gameManager.CurrentPlayer.Health == gameManager.CurrentPlayer.MaxHealth)
-                    return;
+                    Destroy(gameObject);
                 
                 else if(gameManager.CurrentPlayer.Health + 50 > gameManager.CurrentPlayer.MaxHealth){
                     gameManager.CurrentPlayer.Health = gameManager.CurrentPlayer.MaxHealth;

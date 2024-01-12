@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Tilemap tileMap;
     [SerializeField] private int enemyCount;
-
+    private float quantintyCoins;
     private void Awake()
     {
 
@@ -47,7 +47,6 @@ public class GameManager : MonoBehaviour
 
         Champion[] championsArray = GameObject.FindObjectsOfType<Champion>();
         championsList = new List<Champion>(championsArray);
-
         SpawnEnemies();
     }
 
@@ -74,11 +73,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void GiveMoney(){
+        Champion[] championsArray = GameObject.FindObjectsOfType<Champion>();
+        championsList = new List<Champion>(championsArray);
+
+        if(currentPlayer.IsDead)
+        {
+            if(championsList.Count > 6 && championsList.Count < 4)
+                quantintyCoins += 5;
+        }
+    }
+
     void SpawnEnemies()
     {
         List<Vector3> possiblePositions = new List<Vector3>();
 
-        // Primeiro, coletamos todas as posi��es poss�veis
+        // Primeiro, coletamos todas as posi��es poss�veis 
         for (int n = tileMap.cellBounds.xMin; n < tileMap.cellBounds.xMax; n++)
         {
             for (int p = tileMap.cellBounds.yMin; p < tileMap.cellBounds.yMax; p++)

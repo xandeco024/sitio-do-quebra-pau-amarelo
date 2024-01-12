@@ -3,6 +3,7 @@ using UnityEngine;
 public class Champion : MonoBehaviour
 {
     [Header("Components")]
+    protected GameUIManager gameUIManager;
     protected GameManager gameManager;
     protected Animator championAnimator;
     protected Rigidbody2D championRB;
@@ -49,7 +50,6 @@ public class Champion : MonoBehaviour
     [Header("IA")]
     protected Champion target;
 
-
     // Variaveis Acessiveis
     public string ChampionName { get { return championName; } }
     public float MaxHealth { get { return maxHealth; } }
@@ -73,11 +73,12 @@ public class Champion : MonoBehaviour
 
     protected virtual void Awake()
     {
-
+        
     }
 
     protected virtual void Start()
     {
+        gameUIManager = FindObjectOfType<GameUIManager>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         championSR = GetComponent<SpriteRenderer>();
@@ -92,6 +93,8 @@ public class Champion : MonoBehaviour
         originalColor = championSR.color;
         damageColor = Color.red;
 
+        if(gameUIManager.IsPaused)
+            return;
         if (!isPlayer)
         {
             StartCoroutine(SearchTarget());

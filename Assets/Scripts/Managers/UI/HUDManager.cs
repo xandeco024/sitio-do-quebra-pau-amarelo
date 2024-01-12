@@ -1,11 +1,12 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
     private GameManager gameManager;
 
+    [SerializeField] private TextMeshProUGUI usernameText;
     [SerializeField] private Image targetImage;
     [SerializeField] private Slider targetSlider;
     private float attackCDElapsedTime;
@@ -17,6 +18,7 @@ public class HUDManager : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.FindObjectOfType<GameManager>();
+        usernameText.text = PlayerPrefs.GetString("username");
 
         //healthHandleImage = healthSlider.handleRect.GetComponent<Image>();
         //manaHandleImage = manaSlider.handleRect.GetComponent<Image>();
