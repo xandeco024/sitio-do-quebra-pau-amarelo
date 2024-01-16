@@ -26,7 +26,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 2
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -36,12 +36,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _CausticGraph_d67cb8fe2ed04b10bdfd8d621bb1dc85_CausticTexture_1225745305_Texture2D:
-        m_Texture: {fileID: 2800000, guid: f5d205883eb0c1c44b99bc07e3ba7310, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Caustic_Texture:
-        m_Texture: {fileID: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 59a571eee0304244aaa57ee2aa0e5456, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -58,12 +54,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _BUILTIN_QueueControl: 0
-    - _BUILTIN_QueueOffset: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Base_Color: {r: 0, g: 0.14178206, b: 0.18867922, a: 0}
+    - _Base_Color: {r: 0.02352941, g: 0.21568623, b: 0.27843136, a: 0}
     - _Caustic_Color: {r: 0, g: 0.31525108, b: 0.35849056, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1491029841335409231
