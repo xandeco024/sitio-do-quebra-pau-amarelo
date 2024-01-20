@@ -1,11 +1,10 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class HUDManager : MonoBehaviour
 {
     private GameManager gameManager;
-
     [SerializeField] private TextMeshProUGUI usernameText;
     [SerializeField] private Image targetImage;
     [SerializeField] private Slider targetSlider;
@@ -19,7 +18,6 @@ public class HUDManager : MonoBehaviour
     {
         gameManager = GameObject.FindObjectOfType<GameManager>();
         usernameText.text = PlayerPrefs.GetString("username");
-
         //healthHandleImage = healthSlider.handleRect.GetComponent<Image>();
         //manaHandleImage = manaSlider.handleRect.GetComponent<Image>();
         //staminaHandleImage = staminaHandleImage.GetComponent<Image>();
@@ -34,7 +32,6 @@ public class HUDManager : MonoBehaviour
 
     void HandleSliders()
     {
-        print(gameManager.CurrentPlayer);
         float normalizedHealth = gameManager.CurrentPlayer.Health / gameManager.CurrentPlayer.MaxHealth * 100;
         healthSlider.value = Mathf.Lerp(healthSlider.value, normalizedHealth, Time.deltaTime * 5);
          // Se o valor do controle deslizante for 0, torne a imagem do Handle transparente

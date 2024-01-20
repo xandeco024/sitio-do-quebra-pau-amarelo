@@ -17,6 +17,7 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject optionsCanvas,usernameCanvas,championSelectCanvas;
     [SerializeField] private TMP_InputField usernameInput;
     [SerializeField] private TextMeshProUGUI textTitle;
+    [SerializeField] private bool usernameTextValid = false;
     void Start()
     {
         usernameInput.text = (PlayerPrefs.GetString("username") == null)?"":PlayerPrefs.GetString("username");
@@ -34,21 +35,31 @@ public class MenuManager : MonoBehaviour
         //audioSource.PlayOneShot(clips[0]);
 
         string username = usernameInput.text;
-        if(username.Length <= 12){
-            textTitle.text = "Start the game";
-            PlayerPrefs.SetString("username",username);
+
+        if(username.Length <= 12 && username != ""){
+            textTitle.text = "Comece o jogo";
+            usernameTextValid = true;
         }
 
-        else if(username.Length > 12)
-            textTitle.text = "The username cannot to be longer 12 caracters";
+        else if(username.Length > 12){
+            textTitle.text = "O nome de usuario não pode ter mais de 12 caracteres";
+            usernameTextValid = false;
+        }
         
-        else if(username == "")
-            textTitle.text = "Type your username";
+        else if(username == ""){
+            textTitle.text = "Digite seu nome de usuario";
+            usernameTextValid = false;
+        }
+
+        if(usernameTextValid)
+            PlayerPrefs.SetString("username",username);
     }
 
     public void StartTheGame(){
-        usernameCanvas.SetActive(false);
-        championSelectCanvas.SetActive(true);
+        if(usernameTextValid){
+            usernameCanvas.SetActive(false);
+            championSelectCanvas.SetActive(true);
+        }
     }
 
     public void Options()

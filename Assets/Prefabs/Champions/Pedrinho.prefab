@@ -174,7 +174,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicBulletPrefab: {fileID: 1998298768275980069, guid: 51bcf3a8ff4ab5d43b4f040c69fe1d30, type: 3}
   bulletSprite: {fileID: 21300000, guid: a6cdd57c031d5964db0ec760f0025656, type: 3}
+  imageButtonChampionLocked: {fileID: -522525371, guid: 707e13e01fceb624a9033069a00398fd, type: 3}
+  imageButtonChampionUnlocked: {fileID: -61659128, guid: 707e13e01fceb624a9033069a00398fd, type: 3}
   championName: Pedrinho
+  nickname: 
   maxHealth: 180
   maxMana: 100
   maxStamina: 70
@@ -187,6 +190,8 @@ MonoBehaviour:
   attackPenetration: 10
   magicPenetration: 0
   moveSpeed: 6
+  price: 0
+  purchased: 1
 --- !u!95 &2841587336527859976
 Animator:
   serializedVersion: 5

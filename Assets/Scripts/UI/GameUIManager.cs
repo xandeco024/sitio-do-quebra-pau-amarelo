@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using TMPro;
 public class GameUIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject gameOverCanvas, winCanvas, settingsCanvas, pauseCanvas, hudCanvas;
-    private GameManager gameManager;
-    private bool isPaused;
+    [SerializeField] private GameObject gameOverCanvas, winCanvas, 
+    settingsCanvas, pauseCanvas, hudCanvas;
 
-   public bool IsPaused { get { return isPaused; } }
+    [SerializeField] private TextMeshProUGUI coinsCountWinText;
+    [SerializeField] private TextMeshProUGUI coinsCountDeathText;
+    [SerializeField] private Camera playerCamera;
+
+    private GameManager gameManager;
+    private float coinsCount;
+    private bool isPaused;
+    public bool IsPaused { get { return isPaused; } }
 
     void Start()
     {
@@ -19,6 +25,21 @@ public class GameUIManager : MonoBehaviour
     void Update()
     {
         PauseMenu();
+    }
+
+    private void SetCoinsCount(){
+        coinsCount = (float) gameManager.Coins - (float) gameManager.CoinsEarned;
+        float targetValueCoins = (float) gameManager.Coins;
+        StartCoroutine(AddValue(coinsCount,targetValueCoins));
+    }
+
+    private IEnumerator AddValue(float coinsCount,float targetValueCoins){
+        while(coinsCount != targetValueCoins){
+            coinsCount+= 2;
+            coinsCountWinText.text = ((int)coinsCount).ToString();
+            coinsCountDeathText.text = ((int)coinsCount).ToString();
+            yield return null;
+        }
     }
 
     public void HandleGameOver()
@@ -32,6 +53,7 @@ public class GameUIManager : MonoBehaviour
 
             gameOverCanvas.SetActive(true);
             Time.timeScale = 0.0f;
+            SetCoinsCount();
         }
     }
 
@@ -41,6 +63,7 @@ public class GameUIManager : MonoBehaviour
         {
             winCanvas.SetActive(true);
             Time.timeScale = 0.0f;
+            SetCoinsCount();
         }
     }
 
@@ -60,6 +83,10 @@ public class GameUIManager : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    public void PlayAgain(){
+        SceneManager.LoadScene("Sitio");
+    }
+    
     public void BackToMenu()
     {
         SceneManager.LoadScene("MainMenu");

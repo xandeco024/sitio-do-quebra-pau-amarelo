@@ -11,9 +11,12 @@ public class Champion : MonoBehaviour
     protected BoxCollider2D championCol;
     [SerializeField] GameObject basicBulletPrefab;
     [SerializeField] Sprite bulletSprite;
+    [SerializeField] public Sprite imageButtonChampionLocked;
+    [SerializeField] public Sprite imageButtonChampionUnlocked;
 
     [Header("Attributes")]
     [SerializeField] protected string championName;
+    [SerializeField] protected string nickname;
     [SerializeField] protected float maxHealth;
     [SerializeField] protected float maxMana;
     [SerializeField] protected float maxStamina;
@@ -26,14 +29,17 @@ public class Champion : MonoBehaviour
     [SerializeField] protected float attackPenetration;
     [SerializeField] protected float magicPenetration;
     [SerializeField] private float moveSpeed;
+    [SerializeField] protected int price;
     protected float staminaDrain = 20;
     protected float staminaRegenRate = 5;
     protected float manaRegenRate = 5;
+
 
     [Header("Invisible")]
     protected float health;
     protected float mana;
     protected float stamina;
+    [SerializeField] protected int purchased = 0;
 
     [Header("Stats")]
     protected bool isPlayer;
@@ -68,6 +74,15 @@ public class Champion : MonoBehaviour
     public float AttackResistance { get { return attackResistance; } }
     public float MagicResistance { get { return magicResistance; } }
     public float MoveSpeed { get { return moveSpeed; } }
+    public int Price {
+        get {return price;}
+        set {price = value;}
+    }
+    public int Purchased { 
+            get {return purchased;}
+            set {purchased = value;}
+    }
+
     public bool Interacting { get { return interacting; } }
     public bool IsDead { get { return isDead; } }
 
@@ -85,7 +100,7 @@ public class Champion : MonoBehaviour
         championRB = GetComponent<Rigidbody2D>();
         championAnimator = GetComponent<Animator>();
         championCol = GetComponent<BoxCollider2D>();
-        
+        purchased = PlayerPrefs.GetInt(championName + ":purchased",purchased);
         health = maxHealth;
         mana = maxMana;
         stamina = maxStamina;

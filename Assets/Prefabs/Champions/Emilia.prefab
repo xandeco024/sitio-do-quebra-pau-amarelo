@@ -150,7 +150,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicBulletPrefab: {fileID: 1998298768275980069, guid: 51bcf3a8ff4ab5d43b4f040c69fe1d30, type: 3}
   bulletSprite: {fileID: 21300000, guid: 14cff2fe5b144d04c9e667da2e9c4f6e, type: 3}
+  imageButtonChampionLocked: {fileID: -1928565284, guid: 707e13e01fceb624a9033069a00398fd, type: 3}
+  imageButtonChampionUnlocked: {fileID: 1515512514, guid: 707e13e01fceb624a9033069a00398fd, type: 3}
   championName: Emilia
+  nickname: 
   maxHealth: 130
   maxMana: 200
   maxStamina: 60
@@ -163,6 +166,8 @@ MonoBehaviour:
   attackPenetration: 0
   magicPenetration: 20
   moveSpeed: 6
+  price: 1500
+  purchased: 0
   radiusCircleAnnoy: 5
   cooldownAnnoyPower: 0
   cooldownAnnoyEnemy: 0
