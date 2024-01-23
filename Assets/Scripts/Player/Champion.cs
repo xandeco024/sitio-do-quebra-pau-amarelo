@@ -42,6 +42,7 @@ public class Champion : MonoBehaviour
     [SerializeField] protected int purchased = 0;
 
     [Header("Stats")]
+    protected bool canMove = true;
     protected bool isPlayer;
     protected bool canAttack = true;
     protected bool interacting;
@@ -74,6 +75,7 @@ public class Champion : MonoBehaviour
     public float AttackResistance { get { return attackResistance; } }
     public float MagicResistance { get { return magicResistance; } }
     public float MoveSpeed { get { return moveSpeed; } }
+
     public int Price {
         get {return price;}
         set {price = value;}
@@ -169,22 +171,24 @@ public class Champion : MonoBehaviour
 
     void DetectMovement()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        if(canMove){
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
-        {
-            isRunning = true;
-            stamina -= Time.deltaTime * staminaDrain;
-        }
+            if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
+            {
+                isRunning = true;
+                stamina -= Time.deltaTime * staminaDrain;
+            }
 
-        else
-        {
-            isRunning = false;
+            else
+            {
+                isRunning = false;
+            }
         }
     }
 
-    void HandleMovement()
+    protected Vector2 HandleMovement()
     {
         Vector2 moveVector = new Vector2(movement.x, movement.y).normalized;
     
@@ -199,6 +203,7 @@ public class Champion : MonoBehaviour
         }
 
         championRB.velocity = moveVector;
+        return moveVector;
     }
 
     private void BasicAttack(Vector2 direction)

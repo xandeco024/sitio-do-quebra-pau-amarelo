@@ -59,7 +59,6 @@ public class GameManager : MonoBehaviour
         }
         Champion[] championsArray = GameObject.FindObjectsOfType<Champion>();
         championsList = new List<Champion>(championsArray);
-        SpawnEnemies();
     }
 
     void Update()
@@ -76,7 +75,7 @@ public class GameManager : MonoBehaviour
             gameUIManager.HandleGameOver();
         }
 
-        else if (championsList.Count == 1)
+        else if (championsList.Count == 2)
         {
             if (championsList[0] == currentPlayer)
             {
