@@ -167,6 +167,9 @@ public class ChampionSelectManager : MonoBehaviour
 
             PlayerPrefs.SetInt(selectedChampion.ChampionName + ":purchased",selectedChampion.Purchased);
             championBuyingPanel.SetActive(false);
+            priceChampionSelectText.gameObject.SetActive(false);
+            openShopChampionButton.gameObject.SetActive(false); 
+            startGameButton.interactable = true;
         }
     }
 

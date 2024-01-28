@@ -167,12 +167,10 @@ MonoBehaviour:
   magicPenetration: 20
   moveSpeed: 6
   price: 1500
-  purchased: 0
-  radiusCircleAnnoy: 5
-  cooldownAnnoyPower: 0
-  cooldownAnnoyEnemy: 0
-  cooldownSummonGuardian: 0
-  guardian: {fileID: 6958011327347377845, guid: 18284994d3923a04081fa6ff91fca167, type: 3}
+  purchased: 1
+  yoyoPrefab: {fileID: 6725532464646477718, guid: 53221adb513a97240bc11a0ea0a3c798, type: 3}
+  timeAddYoYo: 1.3
+  yoyoSpeed: 50
 --- !u!61 &5787787991428952411
 BoxCollider2D:
   m_ObjectHideFlags: 0

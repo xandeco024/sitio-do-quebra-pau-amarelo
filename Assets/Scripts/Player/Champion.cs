@@ -80,9 +80,9 @@ public class Champion : MonoBehaviour
         get {return price;}
         set {price = value;}
     }
-    public int Purchased { 
-            get {return purchased;}
-            set {purchased = value;}
+    public int Purchased {
+        get {return purchased;}
+        set {purchased = value;}
     }
 
     public bool Interacting { get { return interacting; } }
@@ -90,7 +90,7 @@ public class Champion : MonoBehaviour
 
     protected virtual void Awake()
     {
-        
+
     }
 
     protected virtual void Start()
@@ -102,7 +102,7 @@ public class Champion : MonoBehaviour
         championRB = GetComponent<Rigidbody2D>();
         championAnimator = GetComponent<Animator>();
         championCol = GetComponent<BoxCollider2D>();
-        purchased = PlayerPrefs.GetInt(championName + ":purchased",purchased);
+        purchased = PlayerPrefs.GetInt(championName + ":purchased", purchased);
         health = maxHealth;
         mana = maxMana;
         stamina = maxStamina;
@@ -110,7 +110,7 @@ public class Champion : MonoBehaviour
         originalColor = championSR.color;
         damageColor = Color.red;
 
-        if(gameUIManager.IsPaused)
+        if (gameUIManager.IsPaused)
             return;
         if (!isPlayer)
         {
@@ -132,13 +132,13 @@ public class Champion : MonoBehaviour
         */
 
 
-        if (Input.GetKeyDown(KeyCode.J)) 
+        if (Input.GetKeyDown(KeyCode.J))
         {
             //TakeDamage(10, 0, 0, 0, false, transform.position);
             //mana -= 10;
         }
 
-        if(Input.GetMouseButton(0) && canAttack)
+        if (Input.GetMouseButton(0) && canAttack)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
@@ -158,7 +158,7 @@ public class Champion : MonoBehaviour
         DetectMovement();
         Regen();
 
-        if(health <= 0)
+        if (health <= 0)
         {
             isDead = true;
         }
@@ -171,27 +171,25 @@ public class Champion : MonoBehaviour
 
     void DetectMovement()
     {
-        if(canMove){
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
 
-            if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
-            {
-                isRunning = true;
-                stamina -= Time.deltaTime * staminaDrain;
-            }
+        if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
+        {
+            isRunning = true;
+            stamina -= Time.deltaTime * staminaDrain;
+        }
 
-            else
-            {
-                isRunning = false;
-            }
+        else
+        {
+            isRunning = false;
         }
     }
 
     protected Vector2 HandleMovement()
     {
         Vector2 moveVector = new Vector2(movement.x, movement.y).normalized;
-    
+
         if (isRunning)
         {
             moveVector = moveVector * moveSpeed * 1.5f;
@@ -201,8 +199,11 @@ public class Champion : MonoBehaviour
         {
             moveVector = moveVector * moveSpeed;
         }
+        if(canMove)
+            championRB.velocity = moveVector;
+        else
+            championRB.velocity = new Vector2(0,0);
 
-        championRB.velocity = moveVector;
         return moveVector;
     }
 
@@ -216,15 +217,15 @@ public class Champion : MonoBehaviour
 
             foreach (Collider2D enemy in hitEnemies)
             {
-               if(enemy.gameObject == this.gameObject)
+                if (enemy.gameObject == this.gameObject)
                 {
                     continue;
                 }
 
-               if(enemy.gameObject.tag == "Champion")
-               {
+                if (enemy.gameObject.tag == "Champion")
+                {
                     enemy.GetComponent<Champion>().TakeDamage(attackDamage, attackPenetration, 0, 0, false, transform.position);
-               }
+                }
             }
 
             //Debug.Log("atacou " + hitEnemies.Length + " inimigos");
@@ -299,7 +300,7 @@ public class Champion : MonoBehaviour
 
     void Regen()
     {
-        if(mana < maxMana)
+        if (mana < maxMana)
         {
             mana += Time.deltaTime * manaRegenRate;
         }
@@ -349,7 +350,7 @@ public class Champion : MonoBehaviour
 
             if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
             {
-                if(canAttack)
+                if (canAttack)
                 {
                     BasicAttack(targetDirection);
                 }

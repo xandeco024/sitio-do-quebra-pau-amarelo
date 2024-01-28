@@ -8,6 +8,7 @@ TagManager:
   - Champion
   - Chest
   - Button Prompt
+  - YoYo
   layers:
   - Default
   - TransparentFX
