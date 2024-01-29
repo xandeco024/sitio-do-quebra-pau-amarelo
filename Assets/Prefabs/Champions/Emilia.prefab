@@ -169,8 +169,14 @@ MonoBehaviour:
   price: 1500
   purchased: 1
   yoyoPrefab: {fileID: 6725532464646477718, guid: 53221adb513a97240bc11a0ea0a3c798, type: 3}
-  timeAddYoYo: 1.3
-  yoyoSpeed: 50
+  rangeYoYo: 10
+  yoyoSpeed: 40
+  cooldownYoYo: 10
+  dollFriendPrefab: {fileID: 6958011327347377845, guid: 18284994d3923a04081fa6ff91fca167, type: 3}
+  bulletDollFriendPrefab: {fileID: 8522524333038184267, guid: b540526d13ce75041a5b4b9c3ba5721f, type: 3}
+  dollAttackSpeed: 1
+  timeDollDissapear: 10
+  cooldownDollFriend: 20
 --- !u!61 &5787787991428952411
 BoxCollider2D:
   m_ObjectHideFlags: 0

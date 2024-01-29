@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class Emilia : Champion
 {
     [Header("Components")]
@@ -9,16 +9,29 @@ public class Emilia : Champion
 
 
     [Header("Hability 1")]
-    [SerializeField] private float timeAddYoYo;
-    private float timeCountYoYo;
+    [SerializeField] private float rangeYoYo;
     [SerializeField] private float yoyoSpeed;
-
+    [SerializeField] private float cooldownYoYo;
     Vector3 directionYoYo;
-    private bool keyYoYoIsPressed = false;
     private GameObject yoyoInstantiate;
-    private bool canPlayYoYo;
-
+    private bool keyYoYoIsPressed = false;
+    private bool canApplyCooldown = false;
+    private bool canPlayYoYo = true;
     public bool CanPlayYoYo  { get { return canPlayYoYo; } }
+
+    [Header("Hability 2")]
+    [SerializeField] private GameObject dollFriendPrefab;
+    [SerializeField] private GameObject bulletDollFriendPrefab;
+    [SerializeField] private float dollAttackSpeed;
+    [SerializeField] private float timeDollDissapear;
+    [SerializeField] private float cooldownDollFriend;
+    private GameObject dollFriendInstantiate = null;
+    private GameObject bulletDollFriendInstantiate;
+    private Vector3 directionBullet;
+    private bool keyDollIsPressed;
+    private bool keyBulletIsPressed;
+    private bool canInvokeDoll = true;
+    private bool dollCanAttack = true;
 
     protected override void Awake()
     {
@@ -29,7 +42,6 @@ public class Emilia : Champion
     {
         base.Start();
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-
     }
 
     protected override void Update()
@@ -38,6 +50,20 @@ public class Emilia : Champion
         {
             base.Update();
             keyYoYoIsPressed = Input.GetKeyDown(KeyCode.Z);
+            keyDollIsPressed = Input.GetKeyDown(KeyCode.X);
+            keyBulletIsPressed = Input.GetMouseButtonDown(0);
+
+            CooldownHabilityYoYo();
+            DollFriend();
+
+            if(dollFriendInstantiate != null){
+                Destroy(dollFriendInstantiate,timeDollDissapear);
+                StartCoroutine("DollFriendCD");
+            }
+            
+
+            if(yoyoInstantiate != null && !canPlayYoYo)
+                StartCoroutine("CooldownHabilityYoYo");
 
             if (yoyoInstantiate != null)
             {
@@ -51,12 +77,6 @@ public class Emilia : Champion
 
                 lineYoYo.startWidth = 1f;
                 lineYoYo.endWidth = 1f;
-
-                if (timeCountYoYo > 0)
-                    timeCountYoYo -= 0.1f;
-
-                else if (timeCountYoYo < 0)
-                    timeCountYoYo = 0;
             }
         }
 
@@ -71,42 +91,83 @@ public class Emilia : Champion
     {
         if (isPlayer)
         {
+            
             base.FixedUpdate();
-            YoYoButton(keyYoYoIsPressed);
+            if(keyYoYoIsPressed){
+                YoYoButton();
+            }
 
+            VelocityYoYoButton();
         }
     }
 
-    private void YoYoButton(bool keyIsPressed) {
+    private void YoYoButton() {
 
-        if (keyIsPressed && canPlayYoYo) {
-            Vector3 instantiatePosition = new Vector3(transform.position.x * 1.2f,transform.position.y,transform.position.z);
+        print(canPlayYoYo);
+        if (canPlayYoYo)
+        {
+            Vector3 instantiatePosition = new Vector3(transform.position.x * 1.5f, transform.position.y, transform.position.z);
             yoyoInstantiate = Instantiate(yoyoPrefab, transform.position, transform.rotation);
-            
+
             Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector3 aimDirection = (mousePosition - transform.position).normalized;
 
-            float angleRotation = Mathf.Atan2(aimDirection.y,aimDirection.x) * Mathf.Rad2Deg;
-            yoyoInstantiate.transform.rotation = Quaternion.Euler(0,0,angleRotation);
+            float angleRotation = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+            yoyoInstantiate.transform.rotation = Quaternion.Euler(0, 0, angleRotation);
             directionYoYo = (yoyoInstantiate.transform.right * yoyoSpeed) * Time.fixedDeltaTime;
 
             canPlayYoYo = false;
+        }  
+    }
 
-            canMove = false;
-            timeCountYoYo += timeAddYoYo;
-        }
+    private void VelocityYoYoButton(){
 
         if (yoyoInstantiate != null)
         {
-            if (timeCountYoYo == 0 && !canPlayYoYo)
+            print("oi");
+            if (Vector2.Distance(yoyoInstantiate.transform.position, transform.position) >= rangeYoYo)
                 directionYoYo = ((transform.position - yoyoInstantiate.transform.position).normalized * yoyoSpeed) * Time.fixedDeltaTime;
 
             yoyoInstantiate.GetComponent<Rigidbody2D>().velocity = directionYoYo * yoyoSpeed;
         }
+    }
 
-        else{
-            canPlayYoYo = true;
-            canMove = true;
+    private void DollFriend()
+    {
+        if (keyDollIsPressed && canInvokeDoll)
+        {
+            Vector3 instantiatePosition = new Vector3(transform.position.x * 1.1f, transform.position.y, transform.position.z);
+            dollFriendInstantiate = Instantiate(dollFriendPrefab, instantiatePosition, transform.rotation);
+            dollFriendInstantiate.transform.parent = transform;
+            canInvokeDoll = false;
+            canPlayYoYo = false;
         }
+
+        else if (dollFriendInstantiate != null && keyBulletIsPressed && dollCanAttack)
+        {
+            Vector3 instantiatePosition = new Vector3(transform.position.x * 1.2f, transform.position.y, transform.position.z);
+            Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 aimDirection = (mousePosition - transform.position).normalized;
+
+            float angleRotation = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+            bulletDollFriendInstantiate = Instantiate(bulletDollFriendPrefab,instantiatePosition,Quaternion.Euler(0,0,angleRotation));
+            dollCanAttack = false;
+            StartCoroutine("DollFriendAttackCD");
+        }
+    }
+
+    private IEnumerator DollFriendCD(){
+        yield return new WaitForSeconds(cooldownDollFriend);
+        canInvokeDoll = true;   
+    }
+
+    private IEnumerator DollFriendAttackCD(){
+        yield return new WaitForSeconds(AttackSpeed);
+        dollCanAttack = true;
+    }
+
+    private IEnumerator CooldownHabilityYoYo() {
+       yield return new WaitForSeconds(cooldownYoYo);
+       canPlayYoYo = true;
     }
 }

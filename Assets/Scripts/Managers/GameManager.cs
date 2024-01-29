@@ -22,8 +22,6 @@ public class GameManager : MonoBehaviour
 
     private Vector2 spawnPoint = new Vector2(14, 10);
 
-    
-
     [SerializeField] private GameObject[] championPrefabList;
     [SerializeField] private Camera miniMapCamera;
     [SerializeField] private GameObject iconMiniMap;

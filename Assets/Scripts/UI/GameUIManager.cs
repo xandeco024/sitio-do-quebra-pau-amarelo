@@ -35,7 +35,7 @@ public class GameUIManager : MonoBehaviour
 
     private IEnumerator AddValue(float coinsCount,float targetValueCoins){
         while(coinsCount != targetValueCoins){
-            coinsCount+= 2;
+            coinsCount+= 10;
             coinsCountWinText.text = ((int)coinsCount).ToString();
             coinsCountDeathText.text = ((int)coinsCount).ToString();
             yield return null;

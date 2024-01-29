@@ -138,7 +138,7 @@ public class Champion : MonoBehaviour
             //mana -= 10;
         }
 
-        if (Input.GetMouseButton(0) && canAttack)
+        if (Input.GetMouseButtonDown(0) && canAttack)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
@@ -199,10 +199,7 @@ public class Champion : MonoBehaviour
         {
             moveVector = moveVector * moveSpeed;
         }
-        if(canMove)
-            championRB.velocity = moveVector;
-        else
-            championRB.velocity = new Vector2(0,0);
+        championRB.velocity = moveVector;
 
         return moveVector;
     }
@@ -238,7 +235,6 @@ public class Champion : MonoBehaviour
             GameObject basicBulletInstance = Instantiate(basicBulletPrefab, ((Vector2)transform.position + direction * 1), Quaternion.Euler(new Vector3(0, 0, angle)));
             basicBulletInstance.GetComponent<BasicBullet>().Champion = this;
             basicBulletInstance.GetComponent<BasicBullet>().BulletSprite = bulletSprite;
-
         }
 
         canAttack = false;

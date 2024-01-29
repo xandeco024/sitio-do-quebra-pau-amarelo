@@ -23,6 +23,7 @@ public class BasicBullet : MonoBehaviour
     private void Awake()
     {
         bulletRB = GetComponent<Rigidbody2D>();
+        champion = GameObject.FindObjectOfType<GameManager>().CurrentPlayer;
     }
 
     void Start()
