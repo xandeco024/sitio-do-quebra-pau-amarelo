@@ -150,7 +150,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicBulletPrefab: {fileID: 1998298768275980069, guid: 51bcf3a8ff4ab5d43b4f040c69fe1d30, type: 3}
   bulletSprite: {fileID: 21300000, guid: 14cff2fe5b144d04c9e667da2e9c4f6e, type: 3}
+  imageButtonChampionLocked: {fileID: -1928565284, guid: 707e13e01fceb624a9033069a00398fd, type: 3}
+  imageButtonChampionUnlocked: {fileID: 1515512514, guid: 707e13e01fceb624a9033069a00398fd, type: 3}
   championName: Emilia
+  nickname: 
   maxHealth: 130
   maxMana: 200
   maxStamina: 60
@@ -163,11 +166,17 @@ MonoBehaviour:
   attackPenetration: 0
   magicPenetration: 20
   moveSpeed: 6
-  radiusCircleAnnoy: 5
-  cooldownAnnoyPower: 0
-  cooldownAnnoyEnemy: 0
-  cooldownSummonGuardian: 0
-  guardian: {fileID: 6958011327347377845, guid: 18284994d3923a04081fa6ff91fca167, type: 3}
+  price: 1500
+  purchased: 1
+  yoyoPrefab: {fileID: 6725532464646477718, guid: 53221adb513a97240bc11a0ea0a3c798, type: 3}
+  rangeYoYo: 10
+  yoyoSpeed: 40
+  cooldownYoYo: 10
+  dollFriendPrefab: {fileID: 6958011327347377845, guid: 18284994d3923a04081fa6ff91fca167, type: 3}
+  bulletDollFriendPrefab: {fileID: 8522524333038184267, guid: b540526d13ce75041a5b4b9c3ba5721f, type: 3}
+  dollAttackSpeed: 1
+  timeDollDissapear: 10
+  cooldownDollFriend: 20
 --- !u!61 &5787787991428952411
 BoxCollider2D:
   m_ObjectHideFlags: 0

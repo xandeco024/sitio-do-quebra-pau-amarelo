@@ -5,14 +5,22 @@ using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
+    private int quantintyCoins;
+    private int coinsEarned;
+    private int maxChampions = 25;
+    private bool canGiveCoins = true;
+ 
+
     private Champion currentPlayer;
+    private List<Champion> championsList;
+    
     // Variavies Acessiveis
     public Champion CurrentPlayer { get { return currentPlayer; } }
     public List<Champion> ChampionsList { get { return championsList; } }
+    public int CoinsEarned {get {return coinsEarned;}}
+    public int Coins {get {return quantintyCoins;}}
 
     private Vector2 spawnPoint = new Vector2(14, 10);
-
-    private List<Champion> championsList;
 
     [SerializeField] private GameObject[] championPrefabList;
     [SerializeField] private Camera miniMapCamera;
@@ -21,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Tilemap tileMap;
     [SerializeField] private int enemyCount;
+     
 
     private void Awake()
     {
@@ -28,6 +37,7 @@ public class GameManager : MonoBehaviour
         GameObject currentPlayerObject = Instantiate(championPrefabList[PlayerPrefs.GetInt("selectedChampion")], spawnPoint, Quaternion.identity);
         currentPlayerObject.GetComponent<Champion>().SetPlayer(true);
         currentPlayer = currentPlayerObject.GetComponent<Champion>();
+
 
         miniMapCamera.transform.parent = currentPlayer.transform;
         miniMapCamera.transform.position = new Vector3(
@@ -38,16 +48,15 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        quantintyCoins = PlayerPrefs.GetInt("coins");
         CinemachineVirtualCamera virtualCamera = FindObjectOfType<CinemachineVirtualCamera>();
 
         if (virtualCamera != null && currentPlayer != null)
         {
             virtualCamera.Follow = currentPlayer.transform;
         }
-
         Champion[] championsArray = GameObject.FindObjectsOfType<Champion>();
         championsList = new List<Champion>(championsArray);
-
         SpawnEnemies();
     }
 
@@ -61,6 +70,7 @@ public class GameManager : MonoBehaviour
         if (currentPlayer.IsDead)
         {
             Debug.Log("Game over");
+            GiveCoins();
             gameUIManager.HandleGameOver();
         }
 
@@ -68,9 +78,24 @@ public class GameManager : MonoBehaviour
         {
             if (championsList[0] == currentPlayer)
             {
-                Debug.Log("Win");
+                GiveCoins();
                 gameUIManager.HandleWin();
             }
+        }
+    }
+
+    public void GiveCoins(){
+        Champion[] championsArray = GameObject.FindObjectsOfType<Champion>();
+        championsList = new List<Champion>(championsArray);
+
+        int multiplyCoins = (maxChampions - championsList.Count);
+
+        if(canGiveCoins == true){
+            coinsEarned = (maxChampions - championsList.Count) * multiplyCoins;
+            quantintyCoins += coinsEarned;
+            
+            PlayerPrefs.SetInt("coins",quantintyCoins);
+            canGiveCoins = false;
         }
     }
 
@@ -78,7 +103,7 @@ public class GameManager : MonoBehaviour
     {
         List<Vector3> possiblePositions = new List<Vector3>();
 
-        // Primeiro, coletamos todas as posi��es poss�veis
+        // Primeiro, coletamos todas as posi��es poss�veis 
         for (int n = tileMap.cellBounds.xMin; n < tileMap.cellBounds.xMax; n++)
         {
             for (int p = tileMap.cellBounds.yMin; p < tileMap.cellBounds.yMax; p++)

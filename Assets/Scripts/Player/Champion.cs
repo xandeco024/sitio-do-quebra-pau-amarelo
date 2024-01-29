@@ -3,6 +3,7 @@ using UnityEngine;
 public class Champion : MonoBehaviour
 {
     [Header("Components")]
+    protected GameUIManager gameUIManager;
     protected GameManager gameManager;
     protected Animator championAnimator;
     protected Rigidbody2D championRB;
@@ -10,9 +11,12 @@ public class Champion : MonoBehaviour
     protected BoxCollider2D championCol;
     [SerializeField] GameObject basicBulletPrefab;
     [SerializeField] Sprite bulletSprite;
+    [SerializeField] public Sprite imageButtonChampionLocked;
+    [SerializeField] public Sprite imageButtonChampionUnlocked;
 
     [Header("Attributes")]
     [SerializeField] protected string championName;
+    [SerializeField] protected string nickname;
     [SerializeField] protected float maxHealth;
     [SerializeField] protected float maxMana;
     [SerializeField] protected float maxStamina;
@@ -25,16 +29,20 @@ public class Champion : MonoBehaviour
     [SerializeField] protected float attackPenetration;
     [SerializeField] protected float magicPenetration;
     [SerializeField] private float moveSpeed;
+    [SerializeField] protected int price;
     protected float staminaDrain = 20;
     protected float staminaRegenRate = 5;
     protected float manaRegenRate = 5;
+
 
     [Header("Invisible")]
     protected float health;
     protected float mana;
     protected float stamina;
+    [SerializeField] protected int purchased = 0;
 
     [Header("Stats")]
+    protected bool canMove = true;
     protected bool isPlayer;
     protected bool canAttack = true;
     protected bool interacting;
@@ -48,7 +56,6 @@ public class Champion : MonoBehaviour
 
     [Header("IA")]
     protected Champion target;
-
 
     // Variaveis Acessiveis
     public string ChampionName { get { return championName; } }
@@ -68,6 +75,16 @@ public class Champion : MonoBehaviour
     public float AttackResistance { get { return attackResistance; } }
     public float MagicResistance { get { return magicResistance; } }
     public float MoveSpeed { get { return moveSpeed; } }
+
+    public int Price {
+        get {return price;}
+        set {price = value;}
+    }
+    public int Purchased {
+        get {return purchased;}
+        set {purchased = value;}
+    }
+
     public bool Interacting { get { return interacting; } }
     public bool IsDead { get { return isDead; } }
 
@@ -78,13 +95,14 @@ public class Champion : MonoBehaviour
 
     protected virtual void Start()
     {
+        gameUIManager = FindObjectOfType<GameUIManager>();
         gameManager = GameObject.FindWithTag("GameManager").GetComponent<GameManager>();
 
         championSR = GetComponent<SpriteRenderer>();
         championRB = GetComponent<Rigidbody2D>();
         championAnimator = GetComponent<Animator>();
         championCol = GetComponent<BoxCollider2D>();
-        
+        purchased = PlayerPrefs.GetInt(championName + ":purchased", purchased);
         health = maxHealth;
         mana = maxMana;
         stamina = maxStamina;
@@ -92,6 +110,8 @@ public class Champion : MonoBehaviour
         originalColor = championSR.color;
         damageColor = Color.red;
 
+        if (gameUIManager.IsPaused)
+            return;
         if (!isPlayer)
         {
             StartCoroutine(SearchTarget());
@@ -112,13 +132,13 @@ public class Champion : MonoBehaviour
         */
 
 
-        if (Input.GetKeyDown(KeyCode.J)) 
+        if (Input.GetKeyDown(KeyCode.J))
         {
             //TakeDamage(10, 0, 0, 0, false, transform.position);
             //mana -= 10;
         }
 
-        if(Input.GetMouseButton(0) && canAttack)
+        if (Input.GetMouseButtonDown(0) && canAttack)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector2 direction = (mousePosition - (Vector2)transform.position).normalized;
@@ -138,7 +158,7 @@ public class Champion : MonoBehaviour
         DetectMovement();
         Regen();
 
-        if(health <= 0)
+        if (health <= 0)
         {
             isDead = true;
         }
@@ -166,10 +186,10 @@ public class Champion : MonoBehaviour
         }
     }
 
-    void HandleMovement()
+    protected Vector2 HandleMovement()
     {
         Vector2 moveVector = new Vector2(movement.x, movement.y).normalized;
-    
+
         if (isRunning)
         {
             moveVector = moveVector * moveSpeed * 1.5f;
@@ -179,8 +199,9 @@ public class Champion : MonoBehaviour
         {
             moveVector = moveVector * moveSpeed;
         }
-
         championRB.velocity = moveVector;
+
+        return moveVector;
     }
 
     private void BasicAttack(Vector2 direction)
@@ -193,15 +214,15 @@ public class Champion : MonoBehaviour
 
             foreach (Collider2D enemy in hitEnemies)
             {
-               if(enemy.gameObject == this.gameObject)
+                if (enemy.gameObject == this.gameObject)
                 {
                     continue;
                 }
 
-               if(enemy.gameObject.tag == "Champion")
-               {
+                if (enemy.gameObject.tag == "Champion")
+                {
                     enemy.GetComponent<Champion>().TakeDamage(attackDamage, attackPenetration, 0, 0, false, transform.position);
-               }
+                }
             }
 
             //Debug.Log("atacou " + hitEnemies.Length + " inimigos");
@@ -214,7 +235,6 @@ public class Champion : MonoBehaviour
             GameObject basicBulletInstance = Instantiate(basicBulletPrefab, ((Vector2)transform.position + direction * 1), Quaternion.Euler(new Vector3(0, 0, angle)));
             basicBulletInstance.GetComponent<BasicBullet>().Champion = this;
             basicBulletInstance.GetComponent<BasicBullet>().BulletSprite = bulletSprite;
-
         }
 
         canAttack = false;
@@ -276,7 +296,7 @@ public class Champion : MonoBehaviour
 
     void Regen()
     {
-        if(mana < maxMana)
+        if (mana < maxMana)
         {
             mana += Time.deltaTime * manaRegenRate;
         }
@@ -326,7 +346,7 @@ public class Champion : MonoBehaviour
 
             if (Vector2.Distance(transform.position, target.transform.position) <= attackRange)
             {
-                if(canAttack)
+                if (canAttack)
                 {
                     BasicAttack(targetDirection);
                 }

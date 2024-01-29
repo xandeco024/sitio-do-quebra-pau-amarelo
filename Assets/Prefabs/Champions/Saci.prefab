@@ -123,7 +123,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicBulletPrefab: {fileID: 1998298768275980069, guid: 51bcf3a8ff4ab5d43b4f040c69fe1d30, type: 3}
   bulletSprite: {fileID: 0}
+  imageButtonChampionLocked: {fileID: 815644108, guid: 707e13e01fceb624a9033069a00398fd, type: 3}
+  imageButtonChampionUnlocked: {fileID: -838715320, guid: 707e13e01fceb624a9033069a00398fd, type: 3}
   championName: Saci Perere
+  nickname: 
   maxHealth: 140
   maxMana: 50
   maxStamina: 100
@@ -136,6 +139,8 @@ MonoBehaviour:
   attackPenetration: 30
   magicPenetration: 30
   moveSpeed: 8
+  price: 0
+  purchased: 1
 --- !u!61 &3924919275317587715
 BoxCollider2D:
   m_ObjectHideFlags: 0
