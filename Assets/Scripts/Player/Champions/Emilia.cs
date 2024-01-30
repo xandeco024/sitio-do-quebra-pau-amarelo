@@ -5,10 +5,11 @@ public class Emilia : Champion
     [Header("Components")]
     private Camera cam;
     private LineRenderer lineYoYo;
-    [SerializeField] private GameObject yoyoPrefab;
+ 
 
 
     [Header("Hability 1")]
+    [SerializeField] private GameObject yoyoPrefab;
     [SerializeField] private float rangeYoYo;
     [SerializeField] private float yoyoSpeed;
     [SerializeField] private float cooldownYoYo;
@@ -49,6 +50,7 @@ public class Emilia : Champion
         if (isPlayer)
         {
             base.Update();
+            print(canPlayYoYo);
             keyYoYoIsPressed = Input.GetKeyDown(KeyCode.Z);
             keyDollIsPressed = Input.GetKeyDown(KeyCode.X);
             keyBulletIsPressed = Input.GetMouseButtonDown(0);
@@ -102,22 +104,20 @@ public class Emilia : Champion
     }
 
     private void YoYoButton() {
-
-        print(canPlayYoYo);
-        if (canPlayYoYo)
+        if (canPlayYoYo && yoyoInstantiate == null)
         {
+            canPlayYoYo = false;
             Vector3 instantiatePosition = new Vector3(transform.position.x * 1.5f, transform.position.y, transform.position.z);
-            yoyoInstantiate = Instantiate(yoyoPrefab, transform.position, transform.rotation);
 
             Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector3 aimDirection = (mousePosition - transform.position).normalized;
 
             float angleRotation = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+            yoyoInstantiate = Instantiate(yoyoPrefab, transform.position, transform.rotation);
+        
             yoyoInstantiate.transform.rotation = Quaternion.Euler(0, 0, angleRotation);
             directionYoYo = (yoyoInstantiate.transform.right * yoyoSpeed) * Time.fixedDeltaTime;
-
-            canPlayYoYo = false;
-        }  
+        }
     }
 
     private void VelocityYoYoButton(){
@@ -134,18 +134,17 @@ public class Emilia : Champion
 
     private void DollFriend()
     {
-        if (keyDollIsPressed && canInvokeDoll)
+        if (keyDollIsPressed && canInvokeDoll && dollFriendInstantiate == null)
         {
+            canInvokeDoll = false;
             Vector3 instantiatePosition = new Vector3(transform.position.x * 1.1f, transform.position.y, transform.position.z);
             dollFriendInstantiate = Instantiate(dollFriendPrefab, instantiatePosition, transform.rotation);
             dollFriendInstantiate.transform.parent = transform;
-            canInvokeDoll = false;
-            canPlayYoYo = false;
         }
 
         else if (dollFriendInstantiate != null && keyBulletIsPressed && dollCanAttack)
         {
-            Vector3 instantiatePosition = new Vector3(transform.position.x * 1.2f, transform.position.y, transform.position.z);
+            Vector3 instantiatePosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector3 aimDirection = (mousePosition - transform.position).normalized;
 
