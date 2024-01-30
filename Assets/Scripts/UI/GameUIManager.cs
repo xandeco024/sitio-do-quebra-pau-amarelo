@@ -34,10 +34,10 @@ public class GameUIManager : MonoBehaviour
     }
 
     private IEnumerator AddValue(float coinsCount,float targetValueCoins){
-        while(coinsCount != targetValueCoins){
+        while(coinsCount <= targetValueCoins){
             coinsCount+= 10;
-            coinsCountWinText.text = ((int)coinsCount).ToString();
-            coinsCountDeathText.text = ((int)coinsCount).ToString();
+            coinsCountWinText.text = ((int)coinsCount - 1).ToString();
+            coinsCountDeathText.text = ((int)coinsCount - 1).ToString();
             yield return null;
         }
     }

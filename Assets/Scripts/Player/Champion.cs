@@ -29,6 +29,8 @@ public class Champion : MonoBehaviour
     [SerializeField] protected float attackPenetration;
     [SerializeField] protected float magicPenetration;
     [SerializeField] private float moveSpeed;
+    private float backupMovementSpeed;
+
     [SerializeField] protected int price;
     protected float staminaDrain = 20;
     protected float staminaRegenRate = 5;
@@ -74,7 +76,7 @@ public class Champion : MonoBehaviour
     public float MagicPenetration { get { return MagicPenetration; } }
     public float AttackResistance { get { return attackResistance; } }
     public float MagicResistance { get { return magicResistance; } }
-    public float MoveSpeed { get { return moveSpeed; } }
+    public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
 
     public int Price {
         get {return price;}
@@ -221,7 +223,7 @@ public class Champion : MonoBehaviour
 
                 if (enemy.gameObject.tag == "Champion")
                 {
-                    enemy.GetComponent<Champion>().TakeDamage(attackDamage, attackPenetration, 0, 0, false, transform.position);
+                    enemy.GetComponent<Champion>().TakeDamage(attackDamage, attackPenetration, 0, 0, false,0,transform.position);
                 }
             }
 
@@ -247,7 +249,7 @@ public class Champion : MonoBehaviour
         canAttack = true;
     }
 
-    public void TakeDamage(float attackDamage, float attackPenetration, float magicDamage, float magicPenetration, bool knockback, Vector2 enemyPos)
+    public void TakeDamage(float attackDamage, float attackPenetration, float magicDamage, float magicPenetration, bool knockback,float forceKnockBack, Vector2 enemyPos)
     {
         float damage1 = attackDamage * (1 - (attackResistance - attackPenetration) / 100);
         float damage2 = magicDamage * (1 - (magicResistance - magicPenetration) / 100);
@@ -256,14 +258,25 @@ public class Champion : MonoBehaviour
 
         StartCoroutine(Blink());
 
-        if (knockback) Knockback(enemyPos);
+        if (knockback) Knockback(enemyPos,forceKnockBack);
     }
 
-    private void Knockback(Vector2 enemyPos)
+
+    public void SlowEffect(float slowndallPercentage,float timeSlownDall){
+        moveSpeed -= (moveSpeed * slowndallPercentage) / 100;
+        StartCoroutine(MovementSpeedOriginal(moveSpeed,timeSlownDall));
+    }
+
+    private IEnumerator MovementSpeedOriginal(float moveSpeed,float timeSlownDall){
+        yield return new WaitForSeconds(timeSlownDall);
+        moveSpeed = backupMovementSpeed;
+    }
+
+    private void Knockback(Vector2 enemyPos,float force)
     {
         Vector2 knockbackDirection = (Vector2)transform.position - enemyPos;
         knockbackDirection = knockbackDirection.normalized;
-        championRB.AddForce(knockbackDirection * 10);
+        championRB.AddForce(knockbackDirection * force);
     }
 
     private IEnumerator Blink()

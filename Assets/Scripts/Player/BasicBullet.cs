@@ -17,16 +17,16 @@ public class BasicBullet : MonoBehaviour
     //Variaveis Acessaveis
     public float BulletSpeed { get { return bulletSpeed; } set {  if(value > 0) bulletSpeed = value; } }
     public float BulletLifetime { get { return bulletLifetime; } set { if (value > 0) bulletLifetime = value; } }
-    public Champion Champion { set { champion = value; } }
+    public Champion Champion { get {return champion;} set { champion = value; } }
     public Sprite BulletSprite { set { bulletSprite = value; } }
 
-    private void Awake()
+    protected void Awake()
     {
         bulletRB = GetComponent<Rigidbody2D>();
         champion = GameObject.FindObjectOfType<GameManager>().CurrentPlayer;
     }
 
-    void Start()
+    protected void Start()
     {
         Destroy(gameObject, bulletLifetime);
         bulletRB.velocity = transform.right * bulletSpeed;
@@ -50,7 +50,7 @@ public class BasicBullet : MonoBehaviour
                 {
                     if(collision.gameObject.GetComponent<Champion>() != champion)
                     {
-                        collision.GetComponent<Champion>().TakeDamage(champion.AttackDamage, champion.AttackPenetration, 0, 0, false, transform.position);
+                        collision.GetComponent<Champion>().TakeDamage(champion.AttackDamage, champion.AttackPenetration, 0, 0, false,0, transform.position);
                         DestroyBullet();
                     }
                 }
@@ -58,7 +58,7 @@ public class BasicBullet : MonoBehaviour
         }
     }
 
-    void DestroyBullet()
+    protected void DestroyBullet()
     {
         Destroy(gameObject);
     }
