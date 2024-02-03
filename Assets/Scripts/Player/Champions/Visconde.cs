@@ -5,6 +5,20 @@ using UnityEngine;
 
 public class Visconde : Champion
 {
+
+    protected override string[] nickNamesArray { get; } = {
+    "ViscondeSábirol",
+    "SábioDigitalizado",
+    "MestreViscondido",
+    "EstrategistaViscondelícia",
+    "VisionárioViscondelicioso",
+    "ViscondeDesbravadorzão",
+    "LordViscondelicious",
+    "ViscondeEspecialistão",
+    "DigitalMasterViscondeFera",
+    "ViscondeMágicoMente"
+    };
+
     protected override void Awake()
     {
         base.Awake();

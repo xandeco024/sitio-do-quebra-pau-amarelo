@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class Pedrinho : Champion
 {
+    protected override string[] nickNamesArray { get; } = {
+    "PedraoGames",
+    "Pedro",
+    "MestrePedrada",
+    "PixelPescador",
+    "JogadorPedreiro",
+    "PedroExploradorX",
+    "ProPedrão",
+    "PedroMania",
+    "EstrategistaPDR",
+    "PedroArrebenta"
+    };
+
     protected override void Awake()
     {
         base.Awake();

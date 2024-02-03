@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class Rabico : Champion
 {
+    protected override string[] nickNamesArray { get; } = {
+    "RabicoAstut„o",
+    "Rabico¡giluzado",
+    "Furac„oRabicalh„o",
+    "RabicoMaluquete",
+    "RabicoLigeirinho",
+    "TurboRabicoide",
+    "RabicoFugidinho",
+    "RabicoGuerreir„o",
+    "TomaNoRabico",
+    "Otaku"
+    };
+
     protected override void Awake()
     {
         base.Awake();

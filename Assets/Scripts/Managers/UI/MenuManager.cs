@@ -34,25 +34,25 @@ public class MenuManager : MonoBehaviour
     { 
         //audioSource.PlayOneShot(clips[0]);
 
-        string username = usernameInput.text;
+        string nickName = usernameInput.text;
 
-        if(username.Length <= 12 && username != ""){
+        if(nickName.Length <= 18 && nickName != ""){
             textTitle.text = "Comece o jogo";
             usernameTextValid = true;
         }
 
-        else if(username.Length > 12){
+        else if(nickName.Length > 18){
             textTitle.text = "O nome de usuario não pode ter mais de 12 caracteres";
             usernameTextValid = false;
         }
         
-        else if(username == ""){
+        else if(nickName == ""){
             textTitle.text = "Digite seu nome de usuario";
             usernameTextValid = false;
         }
 
         if(usernameTextValid)
-            PlayerPrefs.SetString("username",username);
+            PlayerPrefs.SetString("nickName",nickName);
     }
 
     public void StartTheGame(){

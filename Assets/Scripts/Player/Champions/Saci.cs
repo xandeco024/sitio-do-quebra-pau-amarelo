@@ -5,6 +5,19 @@ using UnityEngine;
 
 public class Saci : Champion
 {
+    protected override string[] nickNamesArray { get; } = {
+    "SaciRapidón",
+    "SaciTravessúrio",
+    "TurboSaciLoco",
+    "SaciFominha",
+    "Tempestade do Saci",
+    "CaçaSaci",
+    "SaciVortex",
+    "SaciFuração",
+    "VortexSaciLante",
+    "Furacão SaciLoco"
+    };
+
     protected override void Awake()
     {
         base.Awake();

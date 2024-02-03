@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 public class Champion : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Champion : MonoBehaviour
     [SerializeField] Sprite bulletSprite;
     [SerializeField] public Sprite imageButtonChampionLocked;
     [SerializeField] public Sprite imageButtonChampionUnlocked;
+    protected TextMeshPro nickNameTMPRO;
 
     [Header("Attributes")]
     [SerializeField] protected string championName;
@@ -56,6 +58,7 @@ public class Champion : MonoBehaviour
 
     [Header("IA")]
     protected Champion target;
+    protected virtual string[] nickNamesArray { get; }
 
     // Variaveis Acessiveis
     public string ChampionName { get { return championName; } }
@@ -112,10 +115,19 @@ public class Champion : MonoBehaviour
 
         if (gameUIManager.IsPaused)
             return;
+
         if (!isPlayer)
         {
             StartCoroutine(SearchTarget());
             StartCoroutine(ChangeDirection());
+            SetRandomNickname(nickNamesArray);
+
+        }
+
+        else
+
+        {
+            SetNickname(PlayerPrefs.GetString("nickName"));
         }
     }
 
@@ -419,6 +431,18 @@ public class Champion : MonoBehaviour
 
             yield return new WaitForSeconds(2f);
         }
+    }
+
+    protected void SetRandomNickname(string[] nicknames)
+    {
+        nickNameTMPRO = GetComponentInChildren<TextMeshPro>();
+        if (nicknames != null) nickNameTMPRO.text = nicknames[Random.Range(0, nicknames.Length)];
+    }
+
+    protected void SetNickname(string nickname)
+    {
+        nickNameTMPRO = GetComponentInChildren<TextMeshPro>();
+        nickNameTMPRO.text = nickname;
     }
 
     #endregion

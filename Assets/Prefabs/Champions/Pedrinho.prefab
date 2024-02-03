@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1.15}
+  m_AnchoredPosition: {x: 0, y: 1.25}
   m_SizeDelta: {x: 3, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &6217573962697123936
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: PedrinhoMatador1234
+  m_text: Nickname_bacana123
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 57d425377f43aff4988a50be88b101d1, type: 2}
   m_sharedMaterial: {fileID: -4621133922076012734, guid: 57d425377f43aff4988a50be88b101d1, type: 2}

@@ -7,7 +7,6 @@ public class Emilia : Champion
     private LineRenderer lineYoYo;
     [SerializeField] private GameObject yoyoPrefab;
 
-
     [Header("Hability 1")]
     [SerializeField] private float rangeYoYo;
     [SerializeField] private float yoyoSpeed;
@@ -32,6 +31,19 @@ public class Emilia : Champion
     private bool keyBulletIsPressed;
     private bool canInvokeDoll = true;
     private bool dollCanAttack = true;
+
+    protected override string[] nickNamesArray { get; } = {
+    "EmiliaMiliaMilia",
+    "RainhaDaMilicia",
+    "ArteMiliada",
+    "EmiliaXploramila",
+    "Digitemilia",
+    "Emiliarrasa",
+    "EstrelaMiliciosa",
+    "Miliaventureira",
+    "EmiliaGamer3000",
+    "EmiliaComeMilho"
+    };
 
     protected override void Awake()
     {

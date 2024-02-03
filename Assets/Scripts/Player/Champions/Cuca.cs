@@ -13,6 +13,18 @@ public class Cuca : Champion
     //float cooldownInimig = 0;
     //float cooldownPoisounAttack = 0;
 
+    protected override string[] nickNamesArray { get; } = { 
+        "CucaPesadeluda",
+        "PesadeloVerdeLouca",
+        "RainhaCucazinha",
+        "SombraCucalouca",
+        "CucaCaçaNiquel",
+        "FuriaVerdeMaluca",
+        "CucaVingadeira",
+        "TerrorMovelDaCuca",
+        "PesadeloMagicoide",
+        "DevoradoraCukMaluk" 
+    };
 
     protected override void Awake()
     {
