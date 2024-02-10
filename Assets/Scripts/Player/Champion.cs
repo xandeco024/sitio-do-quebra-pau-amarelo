@@ -121,13 +121,12 @@ public class Champion : MonoBehaviour
             StartCoroutine(SearchTarget());
             StartCoroutine(ChangeDirection());
             SetRandomNickname(nickNamesArray);
-
         }
 
         else
 
         {
-            SetNickname(PlayerPrefs.GetString("nickName"));
+            SetNickname(PlayerPrefs.GetString("nickname"));
         }
     }
 

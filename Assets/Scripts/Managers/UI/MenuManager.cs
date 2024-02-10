@@ -20,46 +20,48 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private bool usernameTextValid = false;
     void Start()
     {
-        usernameInput.text = (PlayerPrefs.GetString("username") == null)?"":PlayerPrefs.GetString("username");
+        //usernameInput.text = (PlayerPrefs.GetString("username") == null)?"":PlayerPrefs.GetString("username");
         audioSource = GetComponent<AudioSource>();
 
         if (Time.timeScale < 1) Time.timeScale = 1;
     }
 
     void Update(){
-        ChosseYourUsername();
+        //ChosseYourUsername();
     }
 
     public void ChosseYourUsername()
     { 
         //audioSource.PlayOneShot(clips[0]);
 
-        string nickName = usernameInput.text;
+        string nickname = usernameInput.text;
 
-        if(nickName.Length <= 18 && nickName != ""){
+        if(nickname.Length <= 18 && nickname != ""){
             textTitle.text = "Comece o jogo";
             usernameTextValid = true;
         }
 
-        else if(nickName.Length > 18){
+        else if(nickname.Length > 18){
             textTitle.text = "O nome de usuario não pode ter mais de 12 caracteres";
             usernameTextValid = false;
         }
         
-        else if(nickName == ""){
+        else if(nickname == ""){
             textTitle.text = "Digite seu nome de usuario";
             usernameTextValid = false;
         }
 
         if(usernameTextValid)
-            PlayerPrefs.SetString("nickName",nickName);
+            PlayerPrefs.SetString("nickname",nickname);
     }
 
-    public void StartTheGame(){
-        if(usernameTextValid){
+    public void StartGame(){
+        /*if(usernameTextValid){
             usernameCanvas.SetActive(false);
             championSelectCanvas.SetActive(true);
-        }
+        }*/
+
+        championSelectCanvas.SetActive(true);
     }
 
     public void Options()

@@ -190,4 +190,10 @@ public class ChampionSelectManager : MonoBehaviour
         optionsGame.SetActive(true);
         championSelectCanvas.SetActive(false);
     }
+
+    public void SetNickname(string nickname)
+    {
+        PlayerPrefs.SetString("nickname", nickname);
+        Debug.Log("Setou " + nickname);
+    }
 }
