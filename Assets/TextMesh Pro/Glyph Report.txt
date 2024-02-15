@@ -1,0 +1,12 @@
+Font: Kenney Pixel Square  Style: Regular
+Point Size: 3071   SP/PD Ratio: 0,1%
+
+Characters included: 1/1
+Missing characters: 0
+Excluded characters: 0
+
+Characters missing from font file:
+----------------------------------------
+
+Characters excluded from packing:
+----------------------------------------
