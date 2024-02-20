@@ -123,10 +123,15 @@ public class Champion : MonoBehaviour
             SetRandomNickname(nickNamesArray);
         }
 
-        else
+        else if(!string.IsNullOrEmpty(PlayerPrefs.GetString("nickname")))
 
         {
             SetNickname(PlayerPrefs.GetString("nickname"));
+        }
+
+        else
+        {
+            SetNickname("Usuário de " + championName);
         }
     }
 
