@@ -22,17 +22,14 @@ public class ChampionSelectManager : MonoBehaviour
     [Header("Panels")]
     [SerializeField] private GameObject championBuyingPanel;
 
-    [Header("Botões")]
-    [SerializeField] private Button startGameButton;
+    [Header("Buttons")]
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button buyButton;
     [SerializeField] private Button openShopChampionButton;
-    [SerializeField] private Button buyChampionButton;
     [SerializeField] private Button[] championButtons;
     [SerializeField] private Button[] statsButtons;
-   
-    [SerializeField] private Button[] skillsButtons;
-  
+    [SerializeField] private Button[] skillButtons;
     [SerializeField] GameObject[] championsPrefabs;
-    [SerializeField] private Button[] rotateButtons;
 
     [Header("Canvas")]
     [SerializeField] GameObject menuCanvas, championSelectCanvas, optionsGame;
@@ -41,11 +38,11 @@ public class ChampionSelectManager : MonoBehaviour
     private List<string> championsNames = new List<string>();
 
     [Header("Variables")]
-    public int rotateChampion;
     private Champion selectedChampion;
     private TextMeshProUGUI[] statsText;
-    [SerializeField] private AudioSource clickSFX;
 
+
+    [SerializeField] private TMP_InputField nicknameInputField;
 
     void Start()
     {
@@ -63,12 +60,14 @@ public class ChampionSelectManager : MonoBehaviour
         }
 
         SelectChampion(0);
+        if (!string.IsNullOrEmpty(PlayerPrefs.GetString("nickname")))
+        {
+            nicknameInputField.text = PlayerPrefs.GetString("nickname");
+        }
     }
 
     void Update()
     {
-        selectedChampionImageAnimator.SetFloat("Horizontal", rotateChampion);
-
         titleShopChampionText.text = (PlayerPrefs.GetInt("coins") >= selectedChampion.Price)
         ?"Você tem certeza que quer comprar o (a)" + selectedChampion.ChampionName :
         "Você não tem moedas o suficiente para comprar o (a)" + selectedChampion.ChampionName;;
@@ -102,16 +101,24 @@ public class ChampionSelectManager : MonoBehaviour
         PlayerPrefs.SetInt("selectedChampion", championIndex);
         ChampionUpdate(selectedChampion);
 
-        print(selectedChampion.Purchased);
-         if(selectedChampion.Purchased == 0){
-            startGameButton.interactable = false;
+        //print(selectedChampion.Purchased);
+        if(selectedChampion.Purchased == 0)
+        {
+
+            if(playButton.gameObject.activeSelf) playButton.gameObject.SetActive(false);
+            if(!buyButton.gameObject.activeSelf) buyButton.gameObject.SetActive(true);
+
             priceChampionSelectText.text = "" + selectedChampion.Price;
             priceChampionSelectText.gameObject.SetActive(true);
             openShopChampionButton.gameObject.SetActive(true); 
         }
 
-        else if(selectedChampion.Purchased == 1){
-            startGameButton.interactable = true;
+        else if(selectedChampion.Purchased == 1)
+        {
+
+            if (!playButton.gameObject.activeSelf) playButton.gameObject.SetActive(true);
+            if (buyButton.gameObject.activeSelf) buyButton.gameObject.SetActive(false);
+
             priceChampionSelectText.gameObject.SetActive(false);
             openShopChampionButton.gameObject.SetActive(false); 
         }
@@ -131,9 +138,9 @@ public class ChampionSelectManager : MonoBehaviour
         statsText[7].text = selectedChampion.MoveSpeed.ToString();
         selectedChampionText.text = selectedChampion.ChampionName.ToString();
 
-        for(int i = 0; i < skillsButtons.Length-1; i++)
+        for(int i = 0; i < skillButtons.Length-1; i++)
         {
-            if (skillsButtons[i].gameObject.activeSelf) skillsButtons[i].gameObject.SetActive(false);
+            if (skillButtons[i].gameObject.activeSelf) skillButtons[i].gameObject.SetActive(false);
         }
     }
 
@@ -149,27 +156,30 @@ public class ChampionSelectManager : MonoBehaviour
             coinsRemainingText.text = "" + coinsRemaining;
 
             if(selectedChampion != null)
-                buyChampionButton.gameObject.SetActive(true);
+                buyButton.gameObject.SetActive(true);
             
             else if(selectedChampion != null && coinsHave < priceChampion)
-                buyChampionButton.gameObject.SetActive(false);
+                buyButton.gameObject.SetActive(false);
         }
     }
 
     public void BuyChampion(){
-        int coinsHave = PlayerPrefs.GetInt("coins");
-        int priceChampion = selectedChampion.Price;
-        int coinsRemaining = coinsHave - priceChampion;
+        int coins = PlayerPrefs.GetInt("coins");
+        int championPrice = selectedChampion.Price;
+        int remainingCoins = coins - championPrice;
 
-        if(coinsHave >= priceChampion){
-            PlayerPrefs.SetInt("coins",coinsRemaining); 
+        if(coins >= championPrice){
+            PlayerPrefs.SetInt("coins",remainingCoins); 
             selectedChampion.Purchased = 1; 
 
             PlayerPrefs.SetInt(selectedChampion.ChampionName + ":purchased",selectedChampion.Purchased);
             championBuyingPanel.SetActive(false);
+
+            /*
             priceChampionSelectText.gameObject.SetActive(false);
             openShopChampionButton.gameObject.SetActive(false); 
-            startGameButton.interactable = true;
+            playButton.interactable = true;
+            */
         }
     }
 
