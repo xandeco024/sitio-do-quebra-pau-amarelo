@@ -15,6 +15,7 @@ public class ChampionSelectManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI coinsHaveBuyingPanelText;
     [SerializeField] private TextMeshProUGUI priceChampionShoppingText;
     [SerializeField] private TextMeshProUGUI coinsRemainingText;
+    [SerializeField] private TextMeshProUGUI coinsText;
 
     [Header("Components")]
     [SerializeField] private Animator selectedChampionImageAnimator;
@@ -73,6 +74,7 @@ public class ChampionSelectManager : MonoBehaviour
         "Você não tem moedas o suficiente para comprar o (a)" + selectedChampion.ChampionName;;
 
         HandleSpriteButtonsChampions();
+        SetCoinsText();
     }
 
     private void HandleSpriteButtonsChampions(){
@@ -205,5 +207,10 @@ public class ChampionSelectManager : MonoBehaviour
     {
         PlayerPrefs.SetString("nickname", nickname);
         Debug.Log("Setou " + nickname);
+    }
+
+    private void SetCoinsText()
+    {
+        coinsText.text = PlayerPrefs.GetInt("coins").ToString();
     }
 }

@@ -6682,6 +6682,7 @@ MonoBehaviour:
   coinsHaveBuyingPanelText: {fileID: 1518713661}
   priceChampionShoppingText: {fileID: 2092505827}
   coinsRemainingText: {fileID: 1929921206}
+  coinsText: {fileID: 1099576533}
   selectedChampionImageAnimator: {fileID: 1343997745}
   championBuyingPanel: {fileID: 2136066191}
   playButton: {fileID: 429016468}
