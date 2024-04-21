@@ -1,48 +1,52 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 public class Emilia : Champion
 {
-    [Header("Components")]
-    private Camera cam;
-    private LineRenderer lineYoYo;
- 
-
-
-    [Header("Hability 1")]
+    [Space]
+    [Header("YoYo Skill")]
+    public Skill yoyoSkill;
+    [SerializeField] private AudioClip throwYoYoSound;
+    [SerializeField] private AudioClip backYoYoSound;
+    [SerializeField] private LineRenderer lineYoYo;
     [SerializeField] private GameObject yoyoPrefab;
     [SerializeField] private float rangeYoYo;
-    [SerializeField] private float yoyoSpeed;
-    [SerializeField] private float cooldownYoYo;
-    Vector3 directionYoYo;
-    private GameObject yoyoInstantiate;
-    private bool keyYoYoIsPressed = false;
-    private bool canApplyCooldown = false;
-    private bool canPlayYoYo = true;
-    public bool CanPlayYoYo  { get { return canPlayYoYo; } }
+    [SerializeField] private float speedYoYo;
+    public GameObject instanceYoYo;
+    public bool yoyoReturn = false;
+    private Vector3 yoyoDirection;
 
-    [Header("Hability 2")]
+    [Space]
+    [Header("Doll Friend Skill")]
+    private Skill dollFriendSkill;
     [SerializeField] private GameObject dollFriendPrefab;
-    [SerializeField] private GameObject bulletDollFriendPrefab;
-    [SerializeField] private float dollAttackSpeed;
-    [SerializeField] private float timeDollDissapear;
-    [SerializeField] private float cooldownDollFriend;
-    private GameObject dollFriendInstantiate = null;
-    private GameObject bulletDollFriendInstantiate;
-    private Vector3 directionBullet;
-    private bool keyDollIsPressed;
-    private bool keyBulletIsPressed;
-    private bool canInvokeDoll = true;
-    private bool dollCanAttack = true;
+    [SerializeField] private GameObject bulletDollPrefab;
+    [SerializeField] private float cooldownBulletDoll;
+    [SerializeField] private float timeActiveDoll;
+    [SerializeField] private float bulletDollSpeed;
+    [SerializeField] private float bulletDollLife;
+    private GameObject instanceDollFriend;
+    private GameObject instanceBulletDoll;
+    private bool canDollAttack = true;
+    private bool dollIsActive = false;
 
+    [Space]
+    [Header("Scream Bullet Skill")]
+    [SerializeField] private Skill screamBulletSkill;
+    [SerializeField] private GameObject screamBulletPrefab;
+    private GameObject instanceScreamBullet;
+    [SerializeField] private float screamBulletLife;
     protected override void Awake()
     {
         base.Awake();
         championName = "Emilia";
     }
+
     protected override void Start()
     {
         base.Start();
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        yoyoSkill = Skills[0];
+        dollFriendSkill = Skills[1];
+        screamBulletSkill = Skills[2];
     }
 
     protected override void Update()
@@ -50,36 +54,9 @@ public class Emilia : Champion
         if (isPlayer)
         {
             base.Update();
-            print(canPlayYoYo);
-            keyYoYoIsPressed = Input.GetKeyDown(KeyCode.Z);
-            keyDollIsPressed = Input.GetKeyDown(KeyCode.X);
-            keyBulletIsPressed = Input.GetMouseButtonDown(0);
 
-            CooldownHabilityYoYo();
-            DollFriend();
-
-            if(dollFriendInstantiate != null){
-                Destroy(dollFriendInstantiate,timeDollDissapear);
-                StartCoroutine("DollFriendCD");
-            }
-            
-
-            if(yoyoInstantiate != null && !canPlayYoYo)
-                StartCoroutine("CooldownHabilityYoYo");
-
-            if (yoyoInstantiate != null)
-            {
-                lineYoYo = yoyoInstantiate.GetComponent<LineRenderer>();
-
-                Vector3 startPosition = transform.position;
-                Vector3 endPosition = yoyoInstantiate.transform.position;
-
-                lineYoYo.SetPosition(0, startPosition);
-                lineYoYo.SetPosition(1, endPosition);
-
-                lineYoYo.startWidth = 1f;
-                lineYoYo.endWidth = 1f;
-            }
+            if(dollIsActive && instanceDollFriend)
+                Destroy(instanceDollFriend, timeActiveDoll);
         }
 
         else
@@ -88,85 +65,118 @@ public class Emilia : Champion
         }
     }
 
-
     protected override void FixedUpdate()
     {
         if (isPlayer)
         {
-            
             base.FixedUpdate();
-            if(keyYoYoIsPressed){
-                YoYoButton();
+            YoYoButton();
+            DollFriend();
+            ScreamBullet();
+        }
+    }
+
+    private void YoYoButton()
+    {
+        if(yoyoSkill.state == Skill.StateSkill.active)
+        {
+            if(!instanceYoYo)
+            {
+                instanceYoYo = Instantiate(yoyoPrefab, transform.position,Quaternion.identity);
+                instanceYoYo.transform.parent = transform;
+                instanceYoYo.transform.rotation = AimDirection();
+                instanceYoYo.GetComponent<YoYoButton>().audioSource.clip = throwYoYoSound;
+                instanceYoYo.GetComponent<YoYoButton>().audioSource.Play();
+                yoyoDirection = instanceYoYo.transform.right.normalized;
             }
 
-            VelocityYoYoButton();
+            else
+            {
+                if (Vector3.Distance(instanceYoYo.transform.position, transform.position) >= rangeYoYo)
+                {
+                    yoyoReturn = true;
+                    yoyoDirection = (transform.position - instanceYoYo.transform.position).normalized;
+                    instanceYoYo.GetComponent<YoYoButton>().audioSource.clip = backYoYoSound;
+                    instanceYoYo.GetComponent<YoYoButton>().audioSource.Play();
+                }
+
+                instanceYoYo.GetComponent<Rigidbody2D>().velocity = yoyoDirection * speedYoYo;
+                LineYoYo(); 
+            }
         }
     }
 
-    private void YoYoButton() {
-        if (canPlayYoYo && yoyoInstantiate == null)
-        {
-            canPlayYoYo = false;
-            Vector3 instantiatePosition = new Vector3(transform.position.x * 1.5f, transform.position.y, transform.position.z);
+    private void LineYoYo()
+    {
+        lineYoYo = instanceYoYo.GetComponent<LineRenderer>();
 
-            Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 aimDirection = (mousePosition - transform.position).normalized;
+        Vector3 startPosition = transform.position;
+        Vector3 endPosition = instanceYoYo.transform.position;
 
-            float angleRotation = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-            yoyoInstantiate = Instantiate(yoyoPrefab, transform.position, transform.rotation);
-        
-            yoyoInstantiate.transform.rotation = Quaternion.Euler(0, 0, angleRotation);
-            directionYoYo = (yoyoInstantiate.transform.right * yoyoSpeed) * Time.fixedDeltaTime;
-        }
-    }
+        lineYoYo.SetPosition(0, startPosition);
+        lineYoYo.SetPosition(1, endPosition);
 
-    private void VelocityYoYoButton(){
-
-        if (yoyoInstantiate != null)
-        {
-            print("oi");
-            if (Vector2.Distance(yoyoInstantiate.transform.position, transform.position) >= rangeYoYo)
-                directionYoYo = ((transform.position - yoyoInstantiate.transform.position).normalized * yoyoSpeed) * Time.fixedDeltaTime;
-
-            yoyoInstantiate.GetComponent<Rigidbody2D>().velocity = directionYoYo * yoyoSpeed;
-        }
+        lineYoYo.startWidth = 1f;
+        lineYoYo.endWidth = 1f;
     }
 
     private void DollFriend()
     {
-        if (keyDollIsPressed && canInvokeDoll && dollFriendInstantiate == null)
+        if (dollFriendSkill.state == Skill.StateSkill.active)
         {
-            canInvokeDoll = false;
-            Vector3 instantiatePosition = new Vector3(transform.position.x * 1.1f, transform.position.y, transform.position.z);
-            dollFriendInstantiate = Instantiate(dollFriendPrefab, instantiatePosition, transform.rotation);
-            dollFriendInstantiate.transform.parent = transform;
+           
+            if (!instanceDollFriend && dollIsActive == false)
+            {
+                Vector2 instancePosition = new Vector2(transform.position.x * 1.1f, transform.position.y);
+                instanceDollFriend = Instantiate(dollFriendPrefab, instancePosition, Quaternion.identity);
+                instanceDollFriend.transform.parent = transform;
+                dollIsActive = true;
+            }
+
+            else if(!instanceDollFriend && dollIsActive == true)
+            {
+                dollIsActive = false;
+                dollFriendSkill.state = Skill.StateSkill.cooldown;
+            }
+
+           
+
+            if (Input.GetMouseButtonDown(0) && canDollAttack)
+            {
+                canDollAttack = false;
+                instanceBulletDoll = Instantiate(bulletDollPrefab, instanceDollFriend.transform.position, AimDirection());
+                instanceBulletDoll.transform.parent = instanceDollFriend.transform;
+                instanceBulletDoll.GetComponent<Rigidbody2D>().velocity = instanceBulletDoll.transform.right * bulletDollSpeed;
+                StartCoroutine(DollAttackCD(cooldownBulletDoll));
+            }
+        }
+    }
+    
+    private void ScreamBullet()
+    {
+        if(screamBulletSkill.state == Skill.StateSkill.active && !instanceScreamBullet)
+        {
+            instanceScreamBullet = Instantiate(screamBulletPrefab, transform.position, Quaternion.identity);
+            instanceScreamBullet.transform.parent = transform;
+            instanceScreamBullet.transform.rotation = AimDirection();
         }
 
-        else if (dollFriendInstantiate != null && keyBulletIsPressed && dollCanAttack)
-        {
-            Vector3 instantiatePosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            Vector3 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 aimDirection = (mousePosition - transform.position).normalized;
-
-            float angleRotation = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-            bulletDollFriendInstantiate = Instantiate(bulletDollFriendPrefab,instantiatePosition,Quaternion.Euler(0,0,angleRotation));
-            dollCanAttack = false;
-            StartCoroutine("DollFriendAttackCD");
+        if (instanceScreamBullet){
+            Destroy(instanceScreamBullet, screamBulletLife);
+            screamBulletSkill.state = Skill.StateSkill.cooldown;
         }
     }
-
-    private IEnumerator DollFriendCD(){
-        yield return new WaitForSeconds(cooldownDollFriend);
-        canInvokeDoll = true;   
+    private IEnumerator DollAttackCD(float cooldownTime)
+    {
+        yield return new WaitForSeconds(cooldownTime);
+        canDollAttack = true;
     }
-
-    private IEnumerator DollFriendAttackCD(){
-        yield return new WaitForSeconds(AttackSpeed);
-        dollCanAttack = true;
-    }
-
-    private IEnumerator CooldownHabilityYoYo() {
-       yield return new WaitForSeconds(cooldownYoYo);
-       canPlayYoYo = true;
+    //fun��o que determina qual � a dire��o da mira 
+    private Quaternion AimDirection()
+    {
+        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 aimPosition = (mousePosition - transform.position).normalized;
+        float rotationZ = Mathf.Atan2(aimPosition.y,aimPosition.x) *Mathf.Rad2Deg;
+        return Quaternion.Euler(0,0, rotationZ);
     }
 }

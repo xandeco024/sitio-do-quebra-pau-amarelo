@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3132317580819767269}
   - component: {fileID: 1723418749489458725}
   - component: {fileID: 5787787991428952411}
+  - component: {fileID: -4835918491764982817}
   m_Layer: 6
   m_Name: Emilia
   m_TagString: Champion
@@ -152,6 +153,10 @@ MonoBehaviour:
   bulletSprite: {fileID: 21300000, guid: 14cff2fe5b144d04c9e667da2e9c4f6e, type: 3}
   imageButtonChampionLocked: {fileID: -1928565284, guid: 707e13e01fceb624a9033069a00398fd, type: 3}
   imageButtonChampionUnlocked: {fileID: 1515512514, guid: 707e13e01fceb624a9033069a00398fd, type: 3}
+  skills:
+  - {fileID: 11400000, guid: df5d3383942d7aa4ea4fc134b66e7274, type: 2}
+  - {fileID: 11400000, guid: 5b9addc9b042b5341aa30227a4141221, type: 2}
+  - {fileID: 11400000, guid: 6bd7c8c256656ca44a9fb368f990f5e3, type: 2}
   championName: Emilia
   nickname: 
   maxHealth: 130
@@ -166,17 +171,26 @@ MonoBehaviour:
   attackPenetration: 0
   magicPenetration: 20
   moveSpeed: 6
-  price: 1500
   purchased: 1
+  price: 1500
+  yoyoSkill: {fileID: 0}
+  throwYoYoSound: {fileID: 8300000, guid: 37d730fdee22d564087a4145c538787e, type: 3}
+  backYoYoSound: {fileID: 8300000, guid: c43da0f41c2e54140931b211b13e614f, type: 3}
+  lineYoYo: {fileID: 0}
   yoyoPrefab: {fileID: 6725532464646477718, guid: 53221adb513a97240bc11a0ea0a3c798, type: 3}
-  rangeYoYo: 10
-  yoyoSpeed: 40
-  cooldownYoYo: 10
+  rangeYoYo: 7
+  speedYoYo: 20
+  instanceYoYo: {fileID: 0}
+  yoyoReturn: 0
   dollFriendPrefab: {fileID: 6958011327347377845, guid: 18284994d3923a04081fa6ff91fca167, type: 3}
-  bulletDollFriendPrefab: {fileID: 8522524333038184267, guid: b540526d13ce75041a5b4b9c3ba5721f, type: 3}
-  dollAttackSpeed: 1
-  timeDollDissapear: 10
-  cooldownDollFriend: 20
+  bulletDollPrefab: {fileID: 8522524333038184267, guid: b540526d13ce75041a5b4b9c3ba5721f, type: 3}
+  cooldownBulletDoll: 1
+  timeActiveDoll: 5
+  bulletDollSpeed: 5
+  bulletDollLife: 1
+  screamBulletSkill: {fileID: 11400000, guid: 6bd7c8c256656ca44a9fb368f990f5e3, type: 2}
+  screamBulletPrefab: {fileID: 6987605035535889694, guid: 8dbb0f58f9a354d48808248393bbfb51, type: 3}
+  screamBulletLife: 2
 --- !u!61 &5787787991428952411
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -222,3 +236,99 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.5, y: 2}
   m_EdgeRadius: 0
+--- !u!82 &-4835918491764982817
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6878401898106366189}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

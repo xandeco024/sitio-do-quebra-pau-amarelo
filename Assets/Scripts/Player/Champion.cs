@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 public class Champion : MonoBehaviour
 {
@@ -9,10 +10,13 @@ public class Champion : MonoBehaviour
     protected Rigidbody2D championRB;
     protected SpriteRenderer championSR;
     protected BoxCollider2D championCol;
+
+    
     [SerializeField] GameObject basicBulletPrefab;
-    [SerializeField] Sprite bulletSprite;
+    [SerializeField] protected Sprite bulletSprite;
     [SerializeField] public Sprite imageButtonChampionLocked;
     [SerializeField] public Sprite imageButtonChampionUnlocked;
+    [SerializeField] private Skill[] skills = new Skill[3];
 
     [Header("Attributes")]
     [SerializeField] protected string championName;
@@ -29,7 +33,9 @@ public class Champion : MonoBehaviour
     [SerializeField] protected float attackPenetration;
     [SerializeField] protected float magicPenetration;
     [SerializeField] private float moveSpeed;
-    private float backupMovementSpeed;
+    [SerializeField] protected int purchased = 0;
+    
+    
 
     [SerializeField] protected int price;
     protected float staminaDrain = 20;
@@ -41,7 +47,7 @@ public class Champion : MonoBehaviour
     protected float health;
     protected float mana;
     protected float stamina;
-    [SerializeField] protected int purchased = 0;
+    private float startMoveSpeed;
 
     [Header("Stats")]
     protected bool canMove = true;
@@ -73,11 +79,12 @@ public class Champion : MonoBehaviour
     public float AttackSpeed { get { return attackSpeed; } }
     public float AttackRange { get { return attackRange; } }
     public float AttackPenetration { get { return attackPenetration; } }
-    public float MagicPenetration { get { return MagicPenetration; } }
+    public float MagicPenetration { get { return magicPenetration; } }
     public float AttackResistance { get { return attackResistance; } }
     public float MagicResistance { get { return magicResistance; } }
     public float MoveSpeed { get { return moveSpeed; } set { moveSpeed = value; } }
 
+    public Skill[] Skills { get { return skills; } }
     public int Price {
         get {return price;}
         set {price = value;}
@@ -105,12 +112,14 @@ public class Champion : MonoBehaviour
         championAnimator = GetComponent<Animator>();
         championCol = GetComponent<BoxCollider2D>();
         purchased = PlayerPrefs.GetInt(championName + ":purchased", purchased);
+        
         health = maxHealth;
         mana = maxMana;
         stamina = maxStamina;
 
         originalColor = championSR.color;
         damageColor = Color.red;
+        startMoveSpeed = moveSpeed;
 
         if (gameUIManager.IsPaused)
             return;
@@ -123,23 +132,6 @@ public class Champion : MonoBehaviour
 
     protected virtual void Update()
     {
-        /*if (target != null)
-        {
-            DrawCircle(transform.position, attackRange, Color.red);
-
-            if (canAttack) BasicAttack(target);
-        }
-
-        else DrawCircle(transform.position, attackRange, Color.blue);
-        */
-
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            //TakeDamage(10, 0, 0, 0, false, transform.position);
-            //mana -= 10;
-        }
-
         if (Input.GetMouseButtonDown(0) && canAttack)
         {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -206,7 +198,7 @@ public class Champion : MonoBehaviour
         return moveVector;
     }
 
-    private void BasicAttack(Vector2 direction)
+    protected void BasicAttack(Vector2 direction)
     {
         //Debug.Log("Tentou atacar");
 
@@ -262,14 +254,15 @@ public class Champion : MonoBehaviour
     }
 
 
-    public void SlowEffect(float slowndallPercentage,float timeSlownDall){
-        moveSpeed -= (moveSpeed * slowndallPercentage) / 100;
-        StartCoroutine(MovementSpeedOriginal(moveSpeed,timeSlownDall));
+    public void SlowEffect(float slowdownPercentage,float slowdownEffectTime){
+        moveSpeed -= moveSpeed * slowdownPercentage / 100;
+        StartCoroutine(TurnOffSlowdownEffect(slowdownEffectTime));
     }
 
-    private IEnumerator MovementSpeedOriginal(float moveSpeed,float timeSlownDall){
-        yield return new WaitForSeconds(timeSlownDall);
-        moveSpeed = backupMovementSpeed;
+    private IEnumerator TurnOffSlowdownEffect(float effectTime)
+    {
+        yield return new WaitForSeconds(effectTime);
+        moveSpeed = startMoveSpeed;
     }
 
     private void Knockback(Vector2 enemyPos,float force)

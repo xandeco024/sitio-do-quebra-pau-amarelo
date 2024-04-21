@@ -69,7 +69,6 @@ public class GameManager : MonoBehaviour
 
         if (currentPlayer.IsDead)
         {
-            Debug.Log("Game over");
             GiveCoins();
             gameUIManager.HandleGameOver();
         }

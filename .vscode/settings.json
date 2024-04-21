@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "sitio-do-quebra-pau-amarelo.sln"
+    "dotnet.defaultSolution": "sitio-do-quebra-pau-amarelo.sln",
+    "dotnet.preferCSharpExtension": true
 }
