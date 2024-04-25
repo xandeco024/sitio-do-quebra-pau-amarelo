@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34de547c9b781604488f60c60b8e9e5f, type: 3}
   m_Name: YoYo Skill
   m_EditorClassIdentifier: 
-  name: YoYo Button
+  name: "Bot\xE3o IoIo"
   icon: {fileID: 21300000, guid: 489b315ab7d644d4ab77fa328dc21c9b, type: 3}
   description: "Um bot\xE3o \xE9 lan\xE7ado e quando atinge uma certa distancia ele
     volta"
   attackDamage: 0
   magicDamage: 20
   cooldownTime: 10
-  state: 2
+  state: 0

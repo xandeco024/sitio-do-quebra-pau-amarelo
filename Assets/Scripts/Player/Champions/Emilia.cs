@@ -31,7 +31,7 @@ public class Emilia : Champion
 
     [Space]
     [Header("Scream Bullet Skill")]
-    [SerializeField] private Skill screamBulletSkill;
+    private Skill screamBulletSkill;
     [SerializeField] private GameObject screamBulletPrefab;
     private GameObject instanceScreamBullet;
     [SerializeField] private float screamBulletLife;
@@ -171,7 +171,7 @@ public class Emilia : Champion
         yield return new WaitForSeconds(cooldownTime);
         canDollAttack = true;
     }
-    //fun��o que determina qual � a dire��o da mira 
+
     private Quaternion AimDirection()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -188,7 +188,6 @@ MonoBehaviour:
   timeActiveDoll: 5
   bulletDollSpeed: 5
   bulletDollLife: 1
-  screamBulletSkill: {fileID: 11400000, guid: 6bd7c8c256656ca44a9fb368f990f5e3, type: 2}
   screamBulletPrefab: {fileID: 6987605035535889694, guid: 8dbb0f58f9a354d48808248393bbfb51, type: 3}
   screamBulletLife: 2
 --- !u!61 &5787787991428952411
